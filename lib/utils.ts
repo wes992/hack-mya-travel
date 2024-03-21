@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { cache } from "react";
 
 declare global {
   var mongoose: any; // This must be a `var` and not a `let / const`
@@ -9,33 +10,7 @@ if (!DB_URL) {
   throw new Error("Please define the DB_URL environment variable");
 }
 
-// let cached = global.mongoose;
-
-// if (!cached) {
-//   cached = global.mongoose = { conn: null, promise: null };
-// }
-
-// export const connectToDB = async () => {
-//   if (cached.conn) {
-//     return cached.conn;
-//   }
-//   if (!cached.promise) {
-//     const opts = {
-//       // bufferCommands: false,
-//     };
-//     cached.promise = await mongoose.connect(DB_URL, opts);
-//   }
-//   try {
-//     cached.conn = await cached.promise;
-//   } catch (e) {
-//     cached.promise = null;
-//     throw e;
-//   }
-
-//   return cached.conn;
-// };
-
-export const connectToDB = async () => {
+export const connectToDB = cache(async () => {
   const connection: any = { isConnected: false };
   try {
     if (connection.isConnected) {
@@ -49,7 +24,7 @@ export const connectToDB = async () => {
     console.log("Error connecting to the DB");
     throw new Error(error);
   }
-};
+});
 
 export const getSlug = (text: string) => {
   return String(text)

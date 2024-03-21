@@ -58,8 +58,8 @@ const PostsPage = async ({ searchParams }: PostPageProps) => {
                 View
               </Button>
             </Link>
-            <form key={row.id + "delete"} action={deletePost}>
-              <input type="hidden" name="id" value={row.id} />
+            <form key={row._id + "delete"} action={deletePost}>
+              <input type="hidden" name="id" value={row._id} />
 
               <Button
                 type="submit"

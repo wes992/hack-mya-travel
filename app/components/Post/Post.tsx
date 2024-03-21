@@ -8,6 +8,9 @@ import {
   CardHeader,
   CardMedia,
   Container,
+  Dialog,
+  DialogContent,
+  DialogTitle,
   Grid,
   IconButton,
   MenuItem,
@@ -17,15 +20,24 @@ import { Popup } from "../Popup";
 import { Footer } from "./Footer";
 import { MoreVert, Reply } from "@mui/icons-material";
 import { formatDate } from "../utils";
+import { ShareOnSocials } from "../Socials/ShareOnSocials";
 
 const Post = ({ post }: any) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const [sharePostModal, setSharePostModal] = useState<boolean>(false);
+
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const onClickMenuItem = (url: string) => {
+    setAnchorEl(null);
+    setSharePostModal(Boolean(url));
   };
 
   const {
@@ -37,8 +49,6 @@ const Post = ({ post }: any) => {
     subtitle = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum, quis.",
     category = "A Category",
   } = post;
-
-  // const decodedCoverPhoto = Buffer.from(coverPhoto?.img?.data, "base64");
 
   const { date } = formatDate(createdAt);
   return (
@@ -85,10 +95,16 @@ const Post = ({ post }: any) => {
         <Footer post={post} />
       </Container>
       <Popup anchorEl={anchorEl} open={open} handleClose={handleClose}>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={() => onClickMenuItem(post.route)}>
           Share Post <Reply sx={{ ml: 1, transform: "scaleX(-1)" }} />
         </MenuItem>
       </Popup>
+      <Dialog open={sharePostModal} onClose={() => setSharePostModal(false)}>
+        <DialogTitle>How would you would like to share this?</DialogTitle>
+        <DialogContent>
+          <ShareOnSocials title={post.title} url={post.route} />
+        </DialogContent>
+      </Dialog>
     </Grid>
   );
 };

@@ -14,6 +14,8 @@ export const metadata: Metadata = {
     "A blog about travelling. What I have learned, what I have done and the cards that helped make it possible",
 };
 
+export const revalidate = 3600;
+
 export default function RootLayout({
   children,
 }: Readonly<{

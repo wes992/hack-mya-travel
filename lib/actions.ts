@@ -100,6 +100,7 @@ export const upsertPost = async (formData: any) => {
   }
 
   revalidatePath("/dashboard/posts");
+  revalidatePath("/posts");
   redirect("/dashboard/posts");
 };
 
@@ -119,6 +120,7 @@ export const deletePost = async (formData: any) => {
   }
 
   revalidatePath("/dashboard/posts");
+  revalidatePath("/posts");
   redirect("/dashboard/posts");
 };
 

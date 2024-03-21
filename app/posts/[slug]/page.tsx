@@ -2,8 +2,12 @@ import { Post } from "@/app/components";
 import { getPostBySlug } from "@/lib/data";
 import { Button, Grid, Typography } from "@mui/material";
 import Link from "next/link";
+import { headers } from "next/headers";
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Page({ params }: { params: any }) {
+  const headersList = headers();
+  const referer = headersList.get("referer");
+
   const post = await getPostBySlug(params.slug);
 
   if (!post) {
@@ -17,5 +21,5 @@ export default async function Page({ params }: { params: { slug: string } }) {
     );
   }
 
-  return <Post post={post} />;
+  return <Post post={{ ...post, route: referer }} />;
 }

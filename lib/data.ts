@@ -1,7 +1,8 @@
+import { cache } from "react";
 import { AboutMe, Hero, Post, User } from "./models";
 import { connectToDB } from "./utils";
 
-export const getPosts = async (query = "") => {
+export const getPosts = cache(async (query = "") => {
   try {
     await connectToDB();
     const posts = await Post.find().populate("author").populate("coverPhoto");
@@ -11,9 +12,9 @@ export const getPosts = async (query = "") => {
     console.log(e);
     throw new Error("Failed to get Posts");
   }
-};
+});
 
-export const getRecentPosts = async (limit = 3) => {
+export const getRecentPosts = cache(async (limit = 3) => {
   try {
     await connectToDB();
     const recentPosts = await Post.find({})
@@ -33,9 +34,9 @@ export const getRecentPosts = async (limit = 3) => {
     console.log(e);
     throw new Error("Failed to get Recent Posts");
   }
-};
+});
 
-export const getHero = async () => {
+export const getHero = cache(async () => {
   try {
     // const { hero }: { hero: types.Hero } = await client.request(GET_HERO, {
     //   tag: "main",
@@ -48,9 +49,9 @@ export const getHero = async () => {
     console.log(e);
     throw new Error("Failed to get Hero");
   }
-};
+});
 
-export const getAboutData = async () => {
+export const getAboutData = cache(async () => {
   try {
     await connectToDB();
 
@@ -63,9 +64,9 @@ export const getAboutData = async () => {
     console.log(e);
     throw new Error("Failed to get About info");
   }
-};
+});
 
-export const getUsers = async () => {
+export const getUsers = cache(async () => {
   try {
     await connectToDB();
     const result = await User.find();
@@ -74,9 +75,9 @@ export const getUsers = async () => {
     console.log(e);
     throw new Error("Failed to get Users");
   }
-};
+});
 
-export const getUser = async (id: string) => {
+export const getUser = cache(async (id: string) => {
   try {
     await connectToDB();
     const result = await User.findById(id);
@@ -85,9 +86,9 @@ export const getUser = async (id: string) => {
     console.log(e);
     throw new Error("Failed to get User");
   }
-};
+});
 
-export const getPostBySlug = async (slug: string) => {
+export const getPostBySlug = cache(async (slug: string) => {
   try {
     await connectToDB();
     const result = await Post.findOne({ slug })
@@ -99,4 +100,4 @@ export const getPostBySlug = async (slug: string) => {
     console.log(e);
     throw new Error("Failed to get Post");
   }
-};
+});

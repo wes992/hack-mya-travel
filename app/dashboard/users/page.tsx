@@ -26,7 +26,7 @@ const UsersPage = async () => {
     //TODO: type prop
     return (
       <TableRow
-        key={row.id}
+        key={row._id}
         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
       >
         <TableCell component="th" scope="row">
@@ -52,7 +52,7 @@ const UsersPage = async () => {
               </Button>
             </Link>
             <form action={deleteUser}>
-              <input type="hidden" name="id" value={row.id} />
+              <input type="hidden" name="id" value={row._id} />
               <Button
                 size="small"
                 type="submit"
