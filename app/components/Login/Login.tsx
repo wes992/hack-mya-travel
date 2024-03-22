@@ -5,11 +5,12 @@ import { UserBubble } from "../";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import { Box, IconButton, Menu, MenuItem, Typography } from "@mui/material";
+import { useNavContext } from "../Navigation/NavigationContext";
 
 const Login = ({ sx = {} }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const { user } = useUser();
+  const { user } = useNavContext();
 
   if (!user) {
     return (

@@ -1,13 +1,14 @@
 "use client";
-import { useTheme, List, ListItemButton, ListItemText } from "@mui/material";
+import { List, ListItemButton, ListItemText } from "@mui/material";
 import React from "react";
 import { types } from "..";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useNavContext } from "./NavigationContext";
 
-const NavLinks = ({ links, sx }: types.NavLinksProps) => {
-  const theme = useTheme();
+const NavLinks = ({ sx }: types.NavLinksProps) => {
   const pathname = usePathname();
+  const { user, links } = useNavContext();
 
   return (
     <List
@@ -23,10 +24,7 @@ const NavLinks = ({ links, sx }: types.NavLinksProps) => {
           href={link.route}
           sx={{ textAlign: "center" }}
         >
-          <ListItemText
-            primary={link.name}
-            // sx={{ textTransform: "uppercase" }}
-          />
+          <ListItemText primary={link.name} />
         </ListItemButton>
       ))}
     </List>

@@ -10,7 +10,6 @@ import {
   ListItemText,
   ListSubheader,
 } from "@mui/material";
-import LogoutIcon from "@mui/icons-material/Logout";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupIcon from "@mui/icons-material/Group";
 import ArticleIcon from "@mui/icons-material/Article";
@@ -48,7 +47,7 @@ const Sidebar = ({ user }: any) => {
 
   return (
     <Grid container direction={"column"}>
-      <Grid container gap={2} mb={2} pl={2} alignItems={"center"}>
+      <Grid container gap={2} mb={2} alignItems={"center"}>
         {user && (
           <UserBubble user={JSON.parse(JSON.stringify(user))} showName />
         )}
@@ -82,14 +81,6 @@ const Sidebar = ({ user }: any) => {
           </ListItemButton>
         ))}
       </List>
-      <Button
-        variant="text"
-        // variant="outlined"
-        startIcon={<LogoutIcon />}
-        sx={{ mx: 2 }}
-      >
-        Logout
-      </Button>
     </Grid>
   );
 };

@@ -59,8 +59,8 @@ export type Link = {
 };
 
 export type NavLinksProps = {
-  links: Link[];
-  sx: SxProps;
+  links?: Link[];
+  sx?: SxProps;
 };
 
 export type About = {

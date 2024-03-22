@@ -14,6 +14,7 @@ const ImageUploader = ({
   field = "files",
   uploadOnAttach = false,
   disabled = false,
+  label = "Upload a coverPhoto",
 }: any) => {
   //TODO: Type these props
 
@@ -51,7 +52,7 @@ const ImageUploader = ({
       // action={uploadImage}
       // onSubmit={handleSubmit(onSubmit)}
     >
-      <InputLabel>Upload a coverPhoto</InputLabel>
+      <InputLabel>{label}</InputLabel>
       <Grid container gap={1}>
         <Button
           component="label"

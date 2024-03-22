@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import {
   Box,
+  Button,
+  Divider,
   IconButton,
   List,
   ListItem,
@@ -11,13 +13,17 @@ import {
   SwipeableDrawer,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import LogoutIcon from "@mui/icons-material/Logout";
+
 import Link from "next/link";
 import { types } from "..";
 import { usePathname } from "next/navigation";
+import { useNavContext } from "./NavigationContext";
 
-const NavDrawer = ({ links = [], sx }: types.NavLinksProps) => {
+const NavDrawer = ({ sx }: types.NavLinksProps) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const { user, links } = useNavContext();
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -52,7 +58,9 @@ const NavDrawer = ({ links = [], sx }: types.NavLinksProps) => {
         sx={(theme) => ({
           "& .MuiDrawer-paperAnchorLeft": {
             bgcolor: theme.palette.primary.main,
-            top: "64px",
+            top: theme.mixins.toolbar.minHeight,
+            height: `calc(100% - ${theme.mixins.toolbar.minHeight}px)`,
+            justifyContent: "space-between",
           },
         })}
       >
@@ -89,6 +97,32 @@ const NavDrawer = ({ links = [], sx }: types.NavLinksProps) => {
             ))}
           </List>
         </Box>
+        {user && (
+          <Box
+            role="presentation"
+            onClick={toggleDrawer(false)}
+            onKeyDown={toggleDrawer(false)}
+            sx={{ width: 250 }}
+          >
+            <Divider />
+            <List>
+              <ListItem disablePadding>
+                <Button
+                  variant="text"
+                  component={Link}
+                  startIcon={<LogoutIcon />}
+                  href="/api/auth/logout"
+                  sx={(theme) => ({
+                    color: theme.palette.primary.contrastText,
+                    mx: 2,
+                  })}
+                >
+                  Logout
+                </Button>
+              </ListItem>
+            </List>
+          </Box>
+        )}
       </SwipeableDrawer>
     </React.Fragment>
   );

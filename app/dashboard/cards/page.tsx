@@ -22,7 +22,7 @@ const CardsPage = async ({ searchParams }: any) => {
 
   const posts = await getPosts();
 
-  const tableColumns = ["Card Name", "Description", "Featured", "Action"];
+  const tableColumns = ["Card Name", "Featured", "Action"];
 
   const renderRow = (row: any) => {
     //TODO: Type prop
@@ -32,13 +32,10 @@ const CardsPage = async ({ searchParams }: any) => {
         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
       >
         <TableCell>{row.title}</TableCell>
-        <TableCell>{row.subtitle}</TableCell>
-        <TableCell>
-          <UserBubble user={row.author} showName />
-        </TableCell>
+        <TableCell>{row.isFeatured}</TableCell>
         <TableCell>
           <Grid container gap={1}>
-            <Link href={`/dashboard/posts/${row.slug}`}>
+            <Link href={`/dashboard/cards/${row.slug}`}>
               <Button
                 size="small"
                 startIcon={<VisibilityIcon />}
@@ -82,20 +79,20 @@ const CardsPage = async ({ searchParams }: any) => {
         alignItems={"center"}
         borderRadius={2}
       >
-        <Suspense fallback={"...fallback for posts"}>
-          <Search placeholder="Search for a post" />
+        <Suspense fallback={"...fallback for cards"}>
+          <Search placeholder="Search for a card" />
         </Suspense>
-        <Link href="/dashboard/posts/add">
-          <Button variant="contained">Add Post</Button>
+        <Link href="/dashboard/cards/add">
+          <Button variant="contained">Add Card</Button>
         </Link>
       </Grid>
-      <Grid container justifyContent={"space-between"} alignItems={"center"}>
-        <Table
-          tableColumns={tableColumns}
-          tableRows={posts}
-          renderRow={renderRow}
-        />
-      </Grid>
+      {/* <Grid container justifyContent={"space-between"} alignItems={"center"}> */}
+      <Table
+        tableColumns={tableColumns}
+        tableRows={posts}
+        renderRow={renderRow}
+      />
+      {/* </Grid> */}
       {/*//TODO <Pagination /> */}
     </Grid>
   );
