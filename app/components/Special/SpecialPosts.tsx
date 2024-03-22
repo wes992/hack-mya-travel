@@ -7,6 +7,9 @@ type SpecialPostsProps = {
 };
 
 const SpecialPosts = ({ posts, header }: SpecialPostsProps) => {
+  if (posts.length < 1) {
+    return null;
+  }
   return (
     <Section
       header={header}

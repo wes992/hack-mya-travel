@@ -18,7 +18,7 @@ export default async function Home() {
 
           <Cards cards={[]} header="Featured Card" />
         </Grid>
-      </Grid>{" "}
+      </Grid>
     </main>
   );
 }

@@ -30,6 +30,11 @@ const theme = createTheme({
   typography: {
     fontFamily: noto.style.fontFamily,
   },
+  mixins: {
+    toolbar: {
+      minHeight: 64,
+    },
+  },
 });
 
 export default theme;

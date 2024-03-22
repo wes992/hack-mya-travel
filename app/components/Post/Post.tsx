@@ -53,7 +53,7 @@ const Post = ({ post }: any) => {
   const { date } = formatDate(createdAt);
   return (
     <Grid container sx={{ justifyContent: "center", margin: 3 }}>
-      <Container sx={{ width: "80%" }}>
+      <Container sx={{ width: { xs: "100%", md: "80%" } }}>
         <CardHeader
           avatar={
             <Avatar

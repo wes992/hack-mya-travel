@@ -4,28 +4,33 @@ import { getSession } from "@auth0/nextjs-auth0";
 import { upsertUser, getUserByEmail } from "@/lib/actions";
 import Sidebar from "./sidebar/sidebar";
 import Navbar from "./navbar/navbar";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
-const Layout = async ({ children }: { children: ReactNode | ReactNode[] }) => {
-  const result: any = await getSession();
+const Layout = withPageAuthRequired(
+  //@ts-ignore
+  async ({ children }: { children: ReactNode | ReactNode[] }) => {
+    const result: any = await getSession();
 
-  if (result?.user) {
-    await upsertUser(result.user);
-  }
+    if (result?.user) {
+      await upsertUser(result.user);
+    }
 
-  const DBUser = await getUserByEmail(result?.user?.email);
+    const DBUser = await getUserByEmail(result?.user?.email);
 
-  return (
-    <Grid container mt={-2} gap={2} pt={4}>
-      <Grid item flex={1}>
-        <Sidebar user={DBUser} />
+    return (
+      <Grid container mt={-2} gap={2} pt={4}>
+        <Grid item flex={1}>
+          <Sidebar user={DBUser} />
+        </Grid>
+
+        <Grid item container flex={4} px={2} gap={2}>
+          <Navbar />
+          {children}
+        </Grid>
       </Grid>
-
-      <Grid item container flex={4} px={2} gap={2}>
-        <Navbar />
-        {children}
-      </Grid>
-    </Grid>
-  );
-};
+    );
+  },
+  { returnTo: "/dashboard" }
+);
 
 export default Layout;

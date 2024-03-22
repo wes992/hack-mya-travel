@@ -7,5 +7,6 @@ export { SpecialPosts } from "./Special";
 export { Table } from "./Table";
 export { About, Footer } from "./About";
 export { Navbar, NavLinks, UserBubble } from "./Navigation";
+export { Login } from "./Login";
 
 export * as types from "./types";
