@@ -86,13 +86,12 @@ const CardsPage = async ({ searchParams }: any) => {
           <Button variant="contained">Add Card</Button>
         </Link>
       </Grid>
-      {/* <Grid container justifyContent={"space-between"} alignItems={"center"}> */}
+
       <Table
         tableColumns={tableColumns}
         tableRows={posts}
         renderRow={renderRow}
       />
-      {/* </Grid> */}
       {/*//TODO <Pagination /> */}
     </Grid>
   );

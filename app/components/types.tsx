@@ -67,3 +67,21 @@ export type About = {
   content: string;
   photo: Photo;
 };
+
+export type Highlight = {
+  value: string;
+};
+export type CreditCard = {
+  _id?: string;
+  id?: string;
+  name: string;
+  subtitle: string;
+  highlights: Highlight[];
+  photo: any;
+  isFeatured: boolean;
+};
+
+export type AddCardProps = {
+  card: CreditCard | null;
+  editing: boolean;
+};
