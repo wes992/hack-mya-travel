@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { Post, User, Image } from "./models";
+import { Post, User, Image, Card } from "./models";
 import { connectToDB, getSlug } from "./utils";
 // import bcrypt from "bcrypt";
 
@@ -82,8 +82,8 @@ export const upsertPost = async (formData: any) => {
 
     const currentPost = await Post.findOne({ slug });
     // mutation here
-    if (currentPost?.id) {
-      await Post.findByIdAndUpdate(currentPost.id, {
+    if (currentPost?._id) {
+      await Post.findByIdAndUpdate(currentPost._id, {
         title,
         subtitle,
         slug,
@@ -199,4 +199,71 @@ export const uploadImages = async (images: (typeof Image)[]) => {
     console.log(e);
     throw new Error("Failed to upload Image");
   }
+};
+
+export const upsertCard = async (formData: any) => {
+  const { name, subtitle, highlights, photo, isFeatured, id } = formData;
+
+  try {
+    connectToDB();
+
+    let currentCard = await Card.findById(id);
+    // mutation here
+    if (currentCard?._id) {
+      if (isFeatured) {
+        //ensure all others are marked as isFeatured: false
+        await Card.updateMany(
+          { _id: { $ne: id } },
+          { $set: { isFeatured: false } }
+        );
+      }
+      await Card.findByIdAndUpdate(id, {
+        name,
+        subtitle,
+        highlights,
+        photo,
+        isFeatured,
+      });
+    } else {
+      //Card data
+      const NewCard = new Card({
+        name,
+        subtitle,
+        highlights,
+        photo,
+        isFeatured,
+      });
+
+      await NewCard.save();
+    }
+  } catch (e) {
+    console.log(e);
+    throw new Error("Failed to upsert Card");
+  }
+
+  revalidatePath("/dashboard/cards");
+  revalidatePath("/cards");
+  revalidatePath("/");
+  redirect("/dashboard/cards");
+};
+
+export const deleteCard = async (formData: any) => {
+  console.log("formData", formData);
+  const { id } = Object.fromEntries(formData);
+  try {
+    connectToDB();
+
+    console.log("requesting delete for", id);
+
+    // mutation here
+    await Card.findByIdAndDelete(id);
+  } catch (e) {
+    console.log(e);
+    throw new Error("Failed to delete Card");
+  }
+
+  revalidatePath("/dashboard/cards");
+  revalidatePath("/cards");
+  revalidatePath("/");
+  redirect("/dashboard/cards");
 };

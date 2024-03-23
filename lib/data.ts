@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { AboutMe, Hero, Post, User } from "./models";
+import { AboutMe, Card, Hero, Post, User } from "./models";
 import { connectToDB } from "./utils";
 
 export const getPosts = cache(async (query = "") => {
@@ -99,5 +99,38 @@ export const getPostBySlug = cache(async (slug: string) => {
   } catch (e) {
     console.log(e);
     throw new Error("Failed to get Post");
+  }
+});
+
+export const getCards = cache(async (query = {}) => {
+  try {
+    await connectToDB();
+    const cards = await Card.find(query);
+
+    return JSON.parse(JSON.stringify(cards));
+  } catch (e) {
+    console.log(e);
+    throw new Error("Failed to get Cards");
+  }
+});
+export const getCardById = cache(async (id: string) => {
+  try {
+    await connectToDB();
+    const result = await Card.findById(id).populate("photo");
+    return JSON.parse(JSON.stringify(result));
+  } catch (e) {
+    console.log(e);
+    throw new Error("Failed to get Card");
+  }
+});
+
+export const getFeaturedCard = cache(async () => {
+  try {
+    await connectToDB();
+    const result = await Card.findOne({ isFeatured: true }).populate("photo");
+    return JSON.parse(JSON.stringify(result));
+  } catch (e) {
+    console.log(e);
+    throw new Error("Failed to get Card");
   }
 });

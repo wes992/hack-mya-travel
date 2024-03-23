@@ -1,26 +1,19 @@
 import { Table } from "@/app/components";
-import {
-  Avatar,
-  Button,
-  Grid,
-  Stack,
-  TableRow,
-  TableCell,
-} from "@mui/material";
+import { Button, Grid, TableRow, TableCell } from "@mui/material";
 import Link from "next/link";
 import React, { Suspense } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { getPosts } from "@/lib/data";
-import { deletePost } from "@/lib/actions";
+import { getCards } from "@/lib/data";
+import { deleteCard } from "@/lib/actions";
 import { Search } from "../search";
-import { UserBubble } from "@/app/components/";
 
 const CardsPage = async ({ searchParams }: any) => {
   const query = searchParams?.q || "";
   const page = searchParams?.page || 1;
 
-  const posts = await getPosts();
+  const cards = await getCards();
 
   const tableColumns = ["Card Name", "Featured", "Action"];
 
@@ -28,14 +21,16 @@ const CardsPage = async ({ searchParams }: any) => {
     //TODO: Type prop
     return (
       <TableRow
-        key={row.title}
+        key={row.name}
         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
       >
-        <TableCell>{row.title}</TableCell>
-        <TableCell>{row.isFeatured}</TableCell>
+        <TableCell>{row.name}</TableCell>
+        <TableCell>
+          {row.isFeatured && <CheckCircleIcon color="primary" />}
+        </TableCell>
         <TableCell>
           <Grid container gap={1}>
-            <Link href={`/dashboard/cards/${row.slug}`}>
+            <Link href={`/dashboard/cards/${row._id}`}>
               <Button
                 size="small"
                 startIcon={<VisibilityIcon />}
@@ -48,8 +43,8 @@ const CardsPage = async ({ searchParams }: any) => {
                 View
               </Button>
             </Link>
-            <form key={row.id + "delete"} action={deletePost}>
-              <input type="hidden" name="id" value={row.id} />
+            <form key={row._id + "delete"} action={deleteCard}>
+              <input type="hidden" name="id" value={row._id} />
 
               <Button
                 type="submit"
@@ -89,7 +84,7 @@ const CardsPage = async ({ searchParams }: any) => {
 
       <Table
         tableColumns={tableColumns}
-        tableRows={posts}
+        tableRows={cards}
         renderRow={renderRow}
       />
       {/*//TODO <Pagination /> */}

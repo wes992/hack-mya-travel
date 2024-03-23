@@ -7,18 +7,7 @@ import {
   AboutMeSchema,
   ImageSchema,
 } from "../schemas";
-
-PostSchema.pre("findOneAndDelete", async function (next) {
-  const doc = await this.model.findOne(this.getQuery());
-
-  const imageId = doc.coverPhoto;
-  try {
-    await Image.findByIdAndDelete(imageId);
-    next();
-  } catch (err: any) {
-    next(err);
-  }
-});
+import { CardSchema } from "../schemas/card";
 
 export const User =
   mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
@@ -33,3 +22,5 @@ export const AboutMe =
 
 export const Image =
   mongoose.models.Image || mongoose.model("Image", ImageSchema);
+
+export const Card = mongoose.models.Card || mongoose.model("Card", CardSchema);

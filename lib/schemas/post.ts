@@ -1,5 +1,6 @@
 import { Schema } from "mongoose";
 import { RichTextSchema } from "./richText";
+import { Image } from "../models";
 
 export const PostSchema = new Schema(
   {
@@ -30,3 +31,15 @@ export const PostSchema = new Schema(
   },
   { timestamps: true }
 );
+
+PostSchema.pre("findOneAndDelete", async function (next) {
+  const doc = await this.model.findOne(this.getQuery());
+
+  const imageId = doc.coverPhoto;
+  try {
+    await Image.findByIdAndDelete(imageId);
+    next();
+  } catch (err: any) {
+    next(err);
+  }
+});

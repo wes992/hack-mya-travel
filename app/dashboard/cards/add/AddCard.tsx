@@ -17,9 +17,10 @@ import {
   useFieldArray,
   useForm,
 } from "react-hook-form";
-import { uploadImages } from "@/lib/actions";
+import { deleteCard, uploadImages, upsertCard } from "@/lib/actions";
 import ImageUploader from "@/app/components/ImageUploader/ImageUploader";
 import { types } from "@/app/components";
+import Link from "next/link";
 
 export const AddCard = ({
   card = null,
@@ -59,22 +60,26 @@ export const AddCard = ({
   const onSubmit = async (data: FieldValues) => {
     let photo = undefined;
     if (data.photo) {
-      const uploadResult = await uploadImages(data.photo);
-      photo = uploadResult[0]._id; //ensures we are only taking the first entry
-      debugger;
+      if (data.photo?._id) {
+        photo = data.photo._id;
+      } else {
+        const uploadResult = await uploadImages(data.photo);
+        photo = uploadResult[0]?._id; //ensures we are only taking the first entry
+      }
     }
     const highlights = data.highlights.map(
       (item: types.Highlight) => item.value
     );
 
-    debugger;
+    if (card) {
+      data.id = card._id;
+    }
 
-    console.log({ data });
-    // await upsertCard({
-    //   ...data,
-    //   highlights,
-    //   photo,
-    // });
+    await upsertCard({
+      ...data,
+      highlights,
+      photo,
+    });
   };
 
   return (
@@ -83,8 +88,8 @@ export const AddCard = ({
         {disabled && !!card && (
           <Grid container item gap={2} justifyContent={"center"}>
             <Button onClick={() => setDisabled(false)}>Edit</Button>
-            {/* <form action={deletePost}> */}
-            <form>
+            <form action={deleteCard}>
+              {/* <form> */}
               <input type="hidden" name="id" value={card._id} />
               <Button color="warning" type="submit">
                 Delete
@@ -144,6 +149,7 @@ export const AddCard = ({
                   color="error"
                   onClick={() => remove(index)}
                   sx={{ flex: 1 }}
+                  disabled={disabled}
                 >
                   <DeleteIcon />
                 </IconButton>
@@ -151,10 +157,10 @@ export const AddCard = ({
             ))}
           </Grid>
           <Button
-            disabled={fields.length >= 5}
             variant="text"
             onClick={() => append({ value: "" })}
             sx={{ textTransform: "none" }}
+            disabled={disabled || fields.length >= 5}
           >
             Add Highlight
           </Button>
@@ -168,15 +174,20 @@ export const AddCard = ({
 
           <FormControlLabel
             {...register("isFeatured")}
-            control={<Checkbox />}
+            control={<Checkbox defaultChecked={defaultValues.isFeatured} />}
             label="Mark Card as featured?"
+            disabled={disabled}
           />
 
           <Grid container item mt={1} gap={2}>
-            <Button variant="contained" type="submit">
+            <Button
+              variant="contained"
+              type="submit"
+              disabled={disabled || Object.keys(errors).length > 0}
+            >
               Save
             </Button>
-            <Button variant="outlined" type="submit">
+            <Button variant="outlined" component={Link} href="/dashboard/cards">
               Cancel
             </Button>
           </Grid>
