@@ -14,7 +14,9 @@ import { Section, types } from "..";
 import { Fragment } from "react";
 
 type FeaturedCardProps = {
-  card: types.CreditCard;
+  card: Omit<types.CreditCard, "highlights"> & {
+    highlights: string[];
+  };
 };
 
 export const FeaturedCard = ({ card }: FeaturedCardProps) => {
