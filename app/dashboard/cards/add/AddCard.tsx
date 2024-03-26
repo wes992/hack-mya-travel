@@ -32,6 +32,7 @@ export const AddCard = ({
     highlights: card?.highlights || [{ value: "" }],
     photo: card?.photo || "",
     isFeatured: card?.isFeatured || false,
+    referralLink: card?.referralLink || "",
   };
 
   const [disabled, setDisabled] = useState<boolean>(!editing);
@@ -110,6 +111,7 @@ export const AddCard = ({
             })}
             fullWidth
             label="Name"
+            placeholder="Visa Rewards card"
             error={!!errors.name}
             helperText={String(errors?.name?.message || "")}
             disabled={disabled}
@@ -119,8 +121,19 @@ export const AddCard = ({
             {...register("subtitle")}
             fullWidth
             label="Subtitle"
+            placeholder="The best card for travel - optional"
             error={!!errors.subtitle}
             helperText={String(errors?.subtitle?.message || "")}
+            disabled={disabled}
+          />
+
+          <TextField
+            {...register("referralLink")}
+            fullWidth
+            label="Referral Link"
+            placeholder="Optional referral link"
+            error={!!errors.referralLink}
+            helperText={String(errors?.referralLink?.message || "")}
             disabled={disabled}
           />
 
@@ -166,6 +179,7 @@ export const AddCard = ({
           </Button>
 
           <ImageUploader
+            {...register("photo", { required: "This is a required field" })}
             field={"photo"}
             context={methods}
             disabled={disabled}

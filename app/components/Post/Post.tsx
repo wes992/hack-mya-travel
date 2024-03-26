@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { types } from "..";
 import {
   Avatar,
   CardContent,

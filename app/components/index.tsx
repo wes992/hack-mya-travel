@@ -8,5 +8,6 @@ export { Table } from "./Table";
 export { About, Footer } from "./About";
 export { Navbar, NavLinks, UserBubble } from "./Navigation";
 export { Login } from "./Login";
+export { ShareOnSocials } from "./Socials";
 
 export * as types from "./types";

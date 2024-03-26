@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { types } from ".";
+import Image from "next/image";
 
 //TODO: Add Like/comments section
 
@@ -19,10 +20,12 @@ const BlogCard = ({ post }: any) => {
     <Card
       sx={{
         zIndex: 1,
-        maxWidth: { xs: "100%", md: 300 },
+        maxWidth: { xs: "100%", sm: "50%", md: 300 },
         "&:hover": {
           " .MuiCardMedia-img": { transform: "scale(1.2)" },
         },
+        mx: 2,
+        transition: "all .3s ease-in-out",
       }}
     >
       <Link
@@ -40,6 +43,7 @@ const BlogCard = ({ post }: any) => {
             }}
           />
         </Box>
+
         <CardHeader
           avatar={
             <Avatar

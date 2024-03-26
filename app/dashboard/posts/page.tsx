@@ -15,6 +15,7 @@ import { getPosts } from "@/lib/data";
 import { deletePost } from "@/lib/actions";
 import { Search } from "../search";
 import { UserBubble } from "@/app/components/Navigation/UserBubble";
+import { RenderPostRow } from "./RenderPostRow";
 
 type PostPageProps = {
   searchParams: {
@@ -30,55 +31,6 @@ const PostsPage = async ({ searchParams }: PostPageProps) => {
   const posts = await getPosts();
 
   const tableColumns = ["Title", "Description", "Created By", "Action"];
-
-  const renderRow = (row: any) => {
-    //TODO: Type prop
-    return (
-      <TableRow
-        key={row.title}
-        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-      >
-        <TableCell>{row.title}</TableCell>
-        <TableCell>{row.subtitle}</TableCell>
-        <TableCell>
-          <UserBubble user={row.author} showName />
-        </TableCell>
-        <TableCell>
-          <Grid container gap={1}>
-            <Link href={`/dashboard/posts/${row.slug}`}>
-              <Button
-                size="small"
-                startIcon={<VisibilityIcon />}
-                variant="contained"
-                color="primary"
-                sx={{
-                  textTransform: "none",
-                }}
-              >
-                View
-              </Button>
-            </Link>
-            <form key={row._id + "delete"} action={deletePost}>
-              <input type="hidden" name="id" value={row._id} />
-
-              <Button
-                type="submit"
-                size="small"
-                startIcon={<DeleteIcon />}
-                variant="contained"
-                color="error"
-                sx={{
-                  textTransform: "none",
-                }}
-              >
-                Delete
-              </Button>
-            </form>
-          </Grid>
-        </TableCell>
-      </TableRow>
-    );
-  };
 
   return (
     <Grid container mt={2} p={2} borderRadius={2} gap={2} bgcolor={"#EEE"}>
@@ -100,7 +52,9 @@ const PostsPage = async ({ searchParams }: PostPageProps) => {
         <Table
           tableColumns={tableColumns}
           tableRows={posts}
-          renderRow={renderRow}
+          renderRow={(row) => (
+            <RenderPostRow key={row.name} row={row} action={deletePost} />
+          )}
         />
       </Grid>
       {/*//TODO <Pagination /> */}

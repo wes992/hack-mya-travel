@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -17,13 +17,17 @@ import LogoutIcon from "@mui/icons-material/Logout";
 
 import Link from "next/link";
 import { types } from "..";
-import { usePathname } from "next/navigation";
 import { useNavContext } from "./NavigationContext";
 
 const NavDrawer = ({ sx }: types.NavLinksProps) => {
+  const { user, links, selectedPath, isMediumScreen } = useNavContext();
   const [open, setOpen] = useState(false);
-  const pathname = usePathname();
-  const { user, links } = useNavContext();
+
+  useEffect(() => {
+    if (open && isMediumScreen) {
+      setOpen(false);
+    }
+  }, [open, isMediumScreen]);
 
   const toggleDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -78,8 +82,16 @@ const NavDrawer = ({ sx }: types.NavLinksProps) => {
                 <ListItemButton
                   component={Link}
                   href={link.route}
-                  selected={pathname === link.route}
+                  selected={selectedPath === link.route}
                   sx={(theme) => ({
+                    "&.Mui-selected, &.Mui-selected:hover": {
+                      color: theme.palette.primary.main,
+                      bgcolor: theme.palette.primary.contrastText,
+                    },
+                    "&:hover": {
+                      transform: "scale(1.01)",
+                    },
+                    borderRadius: 6,
                     color: theme.palette.primary.contrastText,
                   })}
                 >

@@ -1,11 +1,9 @@
-"use client";
-
 import { Divider, Grid, Typography } from "@mui/material";
 import React from "react";
-import { Socials } from "../Socials";
 import { ShareOnSocials } from "../Socials/ShareOnSocials";
 
-const Footer = ({ post: { category = "Travel", title = "A great title" } }) => {
+const Footer = ({ post }) => {
+  const { category = "Travel", title = "A great title" } = post;
   return (
     <Grid container>
       <Divider
@@ -20,8 +18,7 @@ const Footer = ({ post: { category = "Travel", title = "A great title" } }) => {
         alignItems={"center"}
       >
         <Grid item>
-          {/* <Socials iconsOnly /> */}
-          <ShareOnSocials title={title} />
+          <ShareOnSocials title={title} url={post.route} />
         </Grid>
         <Typography variant="body1">{category}</Typography>
       </Grid>

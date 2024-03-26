@@ -14,13 +14,25 @@ const CommonTable = ({
   tableRows = [] as unknown[],
   renderRow = (e: any): ReactNode => undefined,
 }) => {
+  const getDisplayProp = (col: string) => {
+    if (col.toLowerCase() === "action") {
+      return { xs: "none", md: "table-cell" };
+    }
+    return "table-cell";
+  };
+
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             {tableColumns.map((col, index) => (
-              <TableCell key={col + index}>{col}</TableCell>
+              <TableCell
+                key={col + index}
+                sx={{ display: getDisplayProp(col) }}
+              >
+                {col}
+              </TableCell>
             ))}
           </TableRow>
         </TableHead>

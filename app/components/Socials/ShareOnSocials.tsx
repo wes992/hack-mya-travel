@@ -77,7 +77,3 @@ const ShareOnSocials = ({ title, url }: ShareOnSocialsProps) => {
 };
 
 export { ShareOnSocials };
-
-// export const ShareOnSocials = () => {
-//   return <div>Share</div>;
-// };

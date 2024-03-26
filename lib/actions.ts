@@ -207,16 +207,17 @@ export const upsertCard = async (formData: any) => {
   try {
     connectToDB();
 
+    if (isFeatured) {
+      //ensure all others are marked as isFeatured: false
+      await Card.updateMany(
+        { _id: { $ne: id } },
+        { $set: { isFeatured: false } }
+      );
+    }
+
     let currentCard = await Card.findById(id);
     // mutation here
     if (currentCard?._id) {
-      if (isFeatured) {
-        //ensure all others are marked as isFeatured: false
-        await Card.updateMany(
-          { _id: { $ne: id } },
-          { $set: { isFeatured: false } }
-        );
-      }
       await Card.findByIdAndUpdate(id, {
         name,
         subtitle,

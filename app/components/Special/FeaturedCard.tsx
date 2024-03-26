@@ -8,7 +8,6 @@ import {
   List,
   ListItem,
   ListItemText,
-  Typography,
 } from "@mui/material";
 import { Section, types } from "..";
 import { Fragment } from "react";
@@ -27,23 +26,35 @@ export const FeaturedCard = ({ card }: FeaturedCardProps) => {
     <Section
       header="Featured Card"
       content={
-        <Card sx={{ borderRadius: 3, bgcolor: "#e3e9ef" }}>
+        <Card
+          sx={{ borderRadius: 3, bgcolor: "#e3e9ef", maxWidth: "700px", m: 2 }}
+        >
           <CardHeader title={card.name} subheader={card.subtitle} />
 
           <CardContent sx={{ p: 0 }}>
-            <Grid container gap={2} justifyContent={"center"}>
-              <Grid item maxWidth={"50%"} pt={2}>
+            <Grid
+              container
+              gap={2}
+              justifyContent={"center"}
+              flexWrap={{ xs: "wrap", md: "nowrap" }}
+            >
+              <Grid
+                item
+                pt={2}
+                sx={{
+                  overflow: "hidden",
+                  maxHeight: "200px",
+                  maxWidth: "300px",
+                }}
+              >
                 <CardMedia
                   component="img"
                   image={card.photo?.img?.data}
                   width={"100%"}
                   alt="credit card"
-                  sx={{
-                    maxWidth: "300px",
-                  }}
                 />
               </Grid>
-              <Grid item maxWidth={"50%"}>
+              <Grid item maxWidth={{ xs: "100%", md: "50%" }}>
                 <List>
                   {card.highlights.map((hl, index) => (
                     <Fragment key={index}>

@@ -1,8 +1,7 @@
 import { AppBar, Box, Toolbar } from "@mui/material";
 import React from "react";
 import { NavLinks } from ".";
-import { Login, types } from "..";
-import { Socials } from "../Socials";
+import { Login } from "..";
 import { NavDrawer } from "./NavDrawer";
 import { NavigationContext } from "./NavigationContext";
 
@@ -18,14 +17,7 @@ const Navbar = () => {
               }}
             />
             <NavLinks sx={{ display: { xs: "none", md: "flex" } }} />
-            <Box
-              sx={{
-                flexGrow: 1,
-                display: { xs: "none", md: "block" },
-              }}
-            >
-              <Socials iconsOnly sx={{ justifyContent: "flex-end" }} />
-            </Box>
+
             <Login sx={{ ml: "auto" }} />
           </Toolbar>
         </AppBar>

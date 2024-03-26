@@ -21,7 +21,11 @@ const Section = ({ header, content }: SectionProps) => {
       />
       <Grid display={"flex"} item mt={2}>
         <Grid item container direction={"column"} gap={2}>
-          <Typography color={theme.palette.primary.contrastText} variant="h4">
+          <Typography
+            color={theme.palette.primary.contrastText}
+            variant="h4"
+            ml={2}
+          >
             {header}
           </Typography>
           <Grid item container gap={1}>

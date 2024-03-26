@@ -1,1 +1,1 @@
-export { Socials } from "./Socials";
+export { ShareOnSocials } from "./ShareOnSocials";

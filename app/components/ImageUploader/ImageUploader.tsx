@@ -1,7 +1,7 @@
 "use client";
 
 import { uploadImages } from "@/lib/actions";
-import { Avatar, Button, Grid, InputLabel } from "@mui/material";
+import { Avatar, Button, Grid, InputLabel, Typography } from "@mui/material";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { formatFiles } from "./utils";
@@ -21,7 +21,12 @@ const ImageUploader = ({
   const form = useForm();
   const formContext = context ?? form;
 
-  const { register, setValue } = formContext;
+  const {
+    register,
+    setValue,
+    formState: { errors },
+    clearErrors,
+  } = formContext;
 
   const [previewImages, setPreviewImages] = useState<any[]>([
     formContext.formState?.defaultValues?.[field],
@@ -37,6 +42,7 @@ const ImageUploader = ({
     const successfulFormats: any[] = await formatFiles(files);
 
     setValue(field, successfulFormats);
+    clearErrors(field);
     setPreviewImages(successfulFormats);
     if (uploadOnAttach) {
       await uploadImages(successfulFormats);
@@ -76,6 +82,7 @@ const ImageUploader = ({
             }}
           />
         </Button>
+
         {previewImages.map((item, index) => (
           <Avatar
             key={"preview-" + index}
@@ -84,6 +91,11 @@ const ImageUploader = ({
           />
         ))}
       </Grid>
+      {errors?.[field]?.message && (
+        <Typography variant="caption" color="error">
+          {errors?.[field]?.message}
+        </Typography>
+      )}
     </Grid>
   );
 };

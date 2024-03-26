@@ -79,6 +79,7 @@ export type CreditCard = {
   highlights: Highlight[];
   photo: any;
   isFeatured: boolean;
+  referralLink?: string;
 };
 
 export type AddCardProps = {
