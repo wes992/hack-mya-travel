@@ -92,7 +92,7 @@ export const AddCard = ({
             <form action={deleteCard}>
               {/* <form> */}
               <input type="hidden" name="id" value={card._id} />
-              <Button color="warning" type="submit">
+              <Button color="error" type="submit">
                 Delete
               </Button>
             </form>

@@ -27,7 +27,9 @@ const RenderPostRow = ({ row, action }: { row: any; action: any }) => {
       }}
     >
       <TableCell>{row.title}</TableCell>
-      <TableCell>{row.subtitle}</TableCell>
+      <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
+        {row.subtitle}
+      </TableCell>
       <TableCell>
         <UserBubble user={row.author} showName />
       </TableCell>

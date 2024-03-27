@@ -55,7 +55,7 @@ const CreatePost = ({ post = null, editing = true }: CreatePostProps) => {
           <Button onClick={() => setDisabled(false)}>Edit</Button>
           <form action={deletePost}>
             <input type="hidden" name="id" value={post._id} />
-            <Button color="warning" type="submit">
+            <Button color="error" type="submit">
               Delete
             </Button>
           </form>

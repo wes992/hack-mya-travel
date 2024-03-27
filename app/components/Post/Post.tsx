@@ -20,6 +20,7 @@ import { Footer } from "./Footer";
 import { MoreVert, Reply } from "@mui/icons-material";
 import { formatDate } from "../utils";
 import { ShareOnSocials } from "../Socials/ShareOnSocials";
+import { getReadingTime } from "./utils";
 
 const Post = ({ post }: any) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -50,6 +51,7 @@ const Post = ({ post }: any) => {
   } = post;
 
   const { date } = formatDate(createdAt);
+  const estimatedReadTime = getReadingTime(content.html);
   return (
     <Grid container sx={{ justifyContent: "center", margin: 3 }}>
       <Container sx={{ width: { xs: "100%", md: "80%" } }}>
@@ -63,7 +65,7 @@ const Post = ({ post }: any) => {
             />
           }
           title={`${given_name}
-          ${family_name} - ${date} - 1 min read`}
+          ${family_name} - ${date} - ${estimatedReadTime} min read`}
           action={
             <IconButton
               aria-label="settings"

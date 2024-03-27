@@ -9,12 +9,9 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import React, { Suspense } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import { getPosts } from "@/lib/data";
 import { deletePost } from "@/lib/actions";
 import { Search } from "../search";
-import { UserBubble } from "@/app/components/Navigation/UserBubble";
 import { RenderPostRow } from "./RenderPostRow";
 
 type PostPageProps = {

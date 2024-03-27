@@ -18,6 +18,9 @@ const CommonTable = ({
     if (col.toLowerCase() === "action") {
       return { xs: "none", md: "table-cell" };
     }
+    if (col.toLowerCase() === "description") {
+      return { xs: "none", md: "table-cell" };
+    }
     return "table-cell";
   };
 
