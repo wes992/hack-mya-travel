@@ -32,7 +32,7 @@ const CreatePost = ({ post = null, editing = true }: CreatePostProps) => {
     formState: { errors },
   } = methods;
 
-  const { user, error, isLoading } = useUser();
+  const { user } = useUser();
 
   const onSubmit = async (data: FieldValues) => {
     const parsedContent = JSON.parse(JSON.stringify(data.content));
@@ -45,7 +45,6 @@ const CreatePost = ({ post = null, editing = true }: CreatePostProps) => {
         photo = uploadResult[0]._id; //ensures we are only taking the first entry
       }
     }
-    debugger;
     await upsertPost({
       ...data,
       authorEmail: user!.email,
