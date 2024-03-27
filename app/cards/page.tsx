@@ -1,11 +1,9 @@
 import React from "react";
-import { LoadingScreen } from "../components";
 import { config } from "../common/config";
 import { getCards } from "@/lib/data";
 import {
   Grid,
   Button,
-  CardActionArea,
   CardActions,
   Card,
   CardContent,
@@ -18,7 +16,6 @@ import Image from "next/image";
 const CreditCards = async () => {
   const labels = config.get("labels");
   const cards = await getCards();
-  // <LoadingScreen title={labels!.get("loadingWIP")} />;
 
   return (
     <Grid container gap={2} mx={2} justifyContent={"center"}>
