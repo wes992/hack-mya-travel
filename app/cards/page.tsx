@@ -67,7 +67,7 @@ const CreditCards = async () => {
 
                 <Grid item display={"flex-end"}>
                   <Stack key="highlights">
-                    {card.highlights.map((highlight) => (
+                    {card.highlights.map((highlight: string) => (
                       <Typography key={highlight} variant="subtitle1">
                         {highlight}
                       </Typography>
