@@ -10,7 +10,6 @@ type AboutProps = {
 const About = ({ content, photo }: AboutProps) => {
   return (
     <Container
-      maxWidth="md"
       sx={{
         display: { xs: "flex", md: "block" },
         flexDirection: "column",
@@ -18,7 +17,7 @@ const About = ({ content, photo }: AboutProps) => {
         mb: 4,
       }}
     >
-      <Container maxWidth="md" disableGutters>
+      <Container disableGutters>
         <Typography variant="h3" py={4}>
           About
         </Typography>
@@ -29,6 +28,7 @@ const About = ({ content, photo }: AboutProps) => {
         sx={{
           alignItems: "center",
           flexDirection: { xs: "column-reverse", md: "row" },
+          overflow: "hidden",
         }}
         gap={8}
       >

@@ -10,43 +10,18 @@ import {
   ListItemText,
   ListSubheader,
 } from "@mui/material";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import GroupIcon from "@mui/icons-material/Group";
-import ArticleIcon from "@mui/icons-material/Article";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { UserBubble } from "../../components";
-
-const menuItems = [
-  {
-    title: "Dashboard",
-    path: "/dashboard",
-    icon: <DashboardIcon />,
-  },
-  {
-    title: "Users",
-    path: "/dashboard/users",
-    icon: <GroupIcon />,
-  },
-  {
-    title: "Posts",
-    path: "/dashboard/posts",
-    icon: <ArticleIcon />,
-  },
-  {
-    title: "Credit Cards",
-    path: "/dashboard/cards",
-    icon: <CreditCardIcon />,
-  },
-];
+import { UserBubble } from "../../../components";
+import { menuItems } from "../utils";
 
 const Sidebar = ({ user }: any) => {
   //TODO: Type this prop
   const pathname = usePathname();
 
   return (
-    <Grid container direction={"column"}>
+    <Grid container direction="column" sx={{}}>
       <Grid container gap={2} mb={2} alignItems={"center"}>
         {user && (
           <UserBubble user={JSON.parse(JSON.stringify(user))} showName />

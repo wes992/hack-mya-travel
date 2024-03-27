@@ -22,12 +22,7 @@ const CardsPage = async ({ searchParams }: any) => {
   return (
     <Grid container mt={2} p={2} borderRadius={2} gap={2} bgcolor={"#EEE"}>
       {/* //TODO: Remove bgcolor */}
-      <Grid
-        container
-        justifyContent={"space-between"}
-        alignItems={"center"}
-        borderRadius={2}
-      >
+      <Grid container justifyContent={"space-between"} alignItems={"center"}>
         <Suspense fallback={"...fallback for cards"}>
           <Search placeholder="Search for a card" />
         </Suspense>

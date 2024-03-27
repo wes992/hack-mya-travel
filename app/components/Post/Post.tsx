@@ -53,8 +53,8 @@ const Post = ({ post }: any) => {
   const { date } = formatDate(createdAt);
   const estimatedReadTime = getReadingTime(content.html);
   return (
-    <Grid container sx={{ justifyContent: "center", margin: 3 }}>
-      <Container sx={{ width: { xs: "100%", md: "80%" } }}>
+    <Grid container sx={{ justifyContent: "center" }}>
+      <Container sx={{ p: 0, width: { xs: "100%", md: "80%" } }}>
         <CardHeader
           avatar={
             <Avatar
@@ -90,7 +90,10 @@ const Post = ({ post }: any) => {
               alt={title}
               sx={{ width: "100%" }}
             />
-            <div dangerouslySetInnerHTML={{ __html: content.html }}></div>
+            <div
+              // style={{ maxWidth: "100%" }}
+              dangerouslySetInnerHTML={{ __html: content.html }}
+            ></div>
           </Grid>
         </CardContent>
         <Footer post={post} />

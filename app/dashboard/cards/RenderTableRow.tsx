@@ -12,19 +12,22 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const RenderTableRow = ({ row, action }: { row: any; action: any }) => {
   const isMediumScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.up("md")
   );
+  const router = useRouter();
+
   //TODO: Type prop
   return (
     <TableRow
       key={row.name}
       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
       onClick={() => {
-        isMediumScreen ? {} : console.log("heya");
+        isMediumScreen ? {} : router.push(`/dashboard/cards/${row._id}`);
       }}
     >
       <TableCell>{row.name}</TableCell>

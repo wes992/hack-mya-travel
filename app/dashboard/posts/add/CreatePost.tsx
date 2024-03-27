@@ -36,16 +36,22 @@ const CreatePost = ({ post = null, editing = true }: CreatePostProps) => {
 
   const onSubmit = async (data: FieldValues) => {
     const parsedContent = JSON.parse(JSON.stringify(data.content));
-    if (!error && !isLoading) {
-      const uploadResult = await uploadImages(data.coverPhotoUrl);
-      const coverPhoto = uploadResult[0]._id; //ensures we are only taking the first entry
-      await upsertPost({
-        ...data,
-        authorEmail: user!.email,
-        content: parsedContent,
-        coverPhoto, //ensures we are only taking the first entry
-      });
+    let photo = undefined;
+    if (data.coverPhotoUrl) {
+      if (data.coverPhotoUrl?._id) {
+        photo = data.coverPhotoUrl._id;
+      } else {
+        const uploadResult = await uploadImages(data.coverPhotoUrl);
+        photo = uploadResult[0]._id; //ensures we are only taking the first entry
+      }
     }
+    debugger;
+    await upsertPost({
+      ...data,
+      authorEmail: user!.email,
+      content: parsedContent,
+      coverPhoto: photo, //ensures we are only taking the first entry
+    });
   };
 
   return (

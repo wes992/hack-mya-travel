@@ -13,17 +13,20 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import Link from "next/link";
 import { UserBubble } from "@/app/components";
+import { useRouter } from "next/navigation";
 
 const RenderPostRow = ({ row, action }: { row: any; action: any }) => {
   const isMediumScreen = useMediaQuery((theme: Theme) =>
     theme.breakpoints.up("md")
   );
+  const router = useRouter();
+
   //TODO: Type prop
   return (
     <TableRow
       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
       onClick={() => {
-        isMediumScreen ? {} : console.log("heya");
+        isMediumScreen ? {} : router.push(`/dashboard/posts/${row.slug}`);
       }}
     >
       <TableCell>{row.title}</TableCell>
