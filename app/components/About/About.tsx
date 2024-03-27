@@ -1,4 +1,4 @@
-import { CardMedia, Grid, Typography, Container } from "@mui/material";
+import { Grid, Typography, Container } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 

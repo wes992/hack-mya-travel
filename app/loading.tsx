@@ -1,8 +1,11 @@
 import React from "react";
 import { LoadingScreen } from "./components";
+import { config } from "./common/config";
 
 const Loading = () => {
-  return <LoadingScreen title={"We are on our way"} />;
+  const labels = config.get("labels");
+
+  return <LoadingScreen title={labels!.get("loadingDefault")} />;
 };
 
 export default Loading;

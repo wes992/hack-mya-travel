@@ -96,7 +96,7 @@ export const getPostBySlug = cache(async (slug: string) => {
 export const getCards = cache(async (query = {}) => {
   try {
     await connectToDB();
-    const cards = await Card.find(query);
+    const cards = await Card.find(query).populate("photo");
 
     return JSON.parse(JSON.stringify(cards));
   } catch (e) {

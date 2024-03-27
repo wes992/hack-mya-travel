@@ -1,8 +1,11 @@
 import React from "react";
 import { LoadingScreen } from "../components";
+import { config } from "../common/config";
 
 const Highlights = () => {
-  return <LoadingScreen title={"This page is under construction"} />;
+  const labels = config.get("labels");
+
+  return <LoadingScreen title={labels!.get("loadingWIP")} />;
 };
 
 export default Highlights;
