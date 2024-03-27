@@ -16,8 +16,8 @@ const links = [
   { id: "home", name: "Home", route: "/" },
   { id: "about", name: "About", route: "/about" },
   { id: "posts", name: "Posts", route: "/posts" },
-  { id: "creditCards", name: "Credit Cards", route: "/" },
-  { id: "highlights", name: "Highlights", route: "/" },
+  { id: "creditCards", name: "Credit Cards", route: "/cards" },
+  { id: "highlights", name: "Highlights", route: "/highlights" },
 ];
 
 const NavContext = createContext<navProps>({

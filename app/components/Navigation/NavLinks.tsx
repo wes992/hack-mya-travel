@@ -13,6 +13,7 @@ const NavLinks = ({ sx }: types.NavLinksProps) => {
       component="nav"
       aria-label="main mailbox folders"
       sx={{
+        mx: 2,
         flexGrow: 4,
         ...sx,
       }}

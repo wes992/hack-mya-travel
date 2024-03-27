@@ -1,7 +1,8 @@
 import React from "react";
+import { LoadingScreen } from "./components";
 
 const Loading = () => {
-  return <h2>Loading</h2>;
+  return <LoadingScreen title={"We are on our way"} />;
 };
 
 export default Loading;

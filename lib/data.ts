@@ -22,12 +22,6 @@ export const getRecentPosts = cache(async (limit = 3) => {
       .populate("coverPhoto")
       .sort({ createdAt: -1 })
       .limit(limit);
-    // const { recentPosts }: { recentPosts: types.Post[] } = await client.request(
-    //   GET_RECENT_POSTS,
-    //   {
-    //     last: 3,
-    //   }
-    // );
 
     return JSON.parse(JSON.stringify(recentPosts));
   } catch (e) {
@@ -38,11 +32,8 @@ export const getRecentPosts = cache(async (limit = 3) => {
 
 export const getHero = cache(async () => {
   try {
-    // const { hero }: { hero: types.Hero } = await client.request(GET_HERO, {
-    //   tag: "main",
-    // });
     await connectToDB();
-    const hero = await Hero.findOne();
+    const hero = await Hero.findOne().populate("image");
 
     return JSON.parse(JSON.stringify(hero));
   } catch (e) {

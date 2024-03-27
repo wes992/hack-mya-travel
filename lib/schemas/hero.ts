@@ -1,11 +1,8 @@
 import { Schema } from "mongoose";
-import { AvatarSchema } from "./avatar";
 
 export const HeroSchema = new Schema({
-  image: {
-    type: AvatarSchema,
-    required: true,
-  },
+  image: { type: Schema.Types.ObjectId, ref: "Image" },
+
   tags: {
     type: Array,
     required: true,

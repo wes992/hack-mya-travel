@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
-import { CardMedia, Grid, Typography, useTheme } from "@mui/material";
-import { types } from "..";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
+import Image from "next/image";
 
-const Hero = ({ hero }: Record<"hero", types.Hero>) => {
+const Hero = ({ hero }: any) => {
+  //TODO: type this
   const theme = useTheme();
   return (
     <Grid container item sx={{ height: "80vh" }} position={"relative"} mt={-2}>
@@ -22,22 +23,24 @@ const Hero = ({ hero }: Record<"hero", types.Hero>) => {
         }}
       >
         <Typography variant="body1" fontSize={"1.2rem"}>
-          {hero?.tags?.[0] || "Travel Blogwwwww"}
+          {hero?.tags?.[0] || "Travel Blog"}
         </Typography>
         <Typography variant="h2" fontWeight={500}>
-          {hero?.tags?.[1] || "Going Placeswwww"}
+          {hero?.tags?.[1] || "Going Places"}
         </Typography>
         <Typography variant="body1" fontSize={"1.2rem"}>
           {hero?.tags?.[2] ||
             "I haven’t been everywhere, but it’s on my list!!!!"}
         </Typography>
       </Grid>
-      <CardMedia
-        component="img"
-        sx={{ width: "100%", height: "100%" }}
-        src={hero?.image?.url}
-        alt={"hero-image"}
-      />
+      <Box sx={{ zIndex: -1 }}>
+        <Image
+          src={hero?.image?.img?.data}
+          alt={hero?.image?.desc}
+          fill
+          objectFit="cover"
+        />
+      </Box>
     </Grid>
   );
 };
