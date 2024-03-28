@@ -17,7 +17,7 @@ const LoadingScreen = ({ title = "" }) => {
       <Typography variant="h4">{title}</Typography>
       <Image
         unoptimized
-        src={"/images/loadingPlane.gif"}
+        src={"/images/LoadingPlane.gif"}
         alt=""
         width={400}
         height={400}
