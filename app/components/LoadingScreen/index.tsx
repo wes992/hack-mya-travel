@@ -15,7 +15,7 @@ const LoadingScreen = ({ title = "" }) => {
       textAlign={"center"}
     >
       <Typography variant="h4">{title}</Typography>
-      <Image src={"/loadingPlane.gif"} alt="" width={400} height={400} />
+      <Image src={"/images/loadingPlane.gif"} alt="" width={400} height={400} />
     </Grid>
   );
 };

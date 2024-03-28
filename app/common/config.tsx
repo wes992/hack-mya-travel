@@ -6,7 +6,7 @@ export const config = new Map([
       ["loadingDefault", "We are on our way"],
       [
         "loadingWIP",
-        "Looks like this page took a flight delay! We're fueling up the engines for its next adventure. Please standby.",
+        "Looks like this page took a flight delay! Please standby.",
       ],
     ]),
   ],
