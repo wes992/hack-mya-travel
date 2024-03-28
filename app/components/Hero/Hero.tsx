@@ -7,7 +7,13 @@ const Hero = ({ hero }: any) => {
   //TODO: type this
   const theme = useTheme();
   return (
-    <Grid container item sx={{ height: "80vh" }} position={"relative"} mt={-2}>
+    <Grid
+      container
+      item
+      sx={{ height: "80vh", width: "100vw" }}
+      position={"relative"}
+      mt={-2}
+    >
       <Grid
         container
         direction="column"

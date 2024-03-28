@@ -1,5 +1,5 @@
 const resize_width = 1200;
-const quality = 0.7;
+const quality = 0.8;
 export const formatFile = (file: File) => {
   return new Promise(function (resolve, reject) {
     let reader = new FileReader();
