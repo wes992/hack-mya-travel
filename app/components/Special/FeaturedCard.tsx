@@ -27,20 +27,29 @@ export const FeaturedCard = ({ card }: FeaturedCardProps) => {
       header="Featured Card"
       content={
         <Card
-          sx={{ borderRadius: 3, bgcolor: "#e3e9ef", maxWidth: "700px", m: 2 }}
+          sx={{
+            borderRadius: 3,
+            bgcolor: "#e3e9ef",
+            maxWidth: "700px",
+            m: 2,
+          }}
         >
-          <CardHeader title={card.name} subheader={card.subtitle} />
+          <CardHeader
+            title={card.name}
+            subheader={card.subtitle}
+            sx={{ pb: 0 }}
+          />
 
           <CardContent sx={{ p: 0 }}>
             <Grid
               container
               gap={2}
+              p={2}
               justifyContent={"center"}
               flexWrap={{ xs: "wrap", md: "nowrap" }}
             >
               <Grid
                 item
-                pt={2}
                 sx={{
                   overflow: "hidden",
                   maxHeight: "200px",
@@ -58,7 +67,7 @@ export const FeaturedCard = ({ card }: FeaturedCardProps) => {
                 <List>
                   {card.highlights.map((hl, index) => (
                     <Fragment key={index}>
-                      <ListItem>
+                      <ListItem sx={{ p: 0 }}>
                         <ListItemText primary={hl} />
                       </ListItem>
                       {index !== card.highlights.length - 1 && (

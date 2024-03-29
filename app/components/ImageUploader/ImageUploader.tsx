@@ -3,7 +3,7 @@
 import { uploadImages } from "@/lib/actions";
 import { Avatar, Button, Grid, InputLabel, Typography } from "@mui/material";
 import React, { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { formatFiles } from "./utils";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
@@ -15,6 +15,7 @@ const ImageUploader = ({
   uploadOnAttach = false,
   disabled = false,
   label = "Upload a coverPhoto",
+  required = false,
 }: any) => {
   //TODO: Type these props
 
@@ -22,7 +23,7 @@ const ImageUploader = ({
   const formContext = context ?? form;
 
   const {
-    register,
+    control,
     setValue,
     formState: { errors },
     clearErrors,
@@ -32,15 +33,16 @@ const ImageUploader = ({
     formContext.formState?.defaultValues?.[field],
   ]);
 
-  // 1. add reference to input element
-  const ref = useRef<HTMLInputElement>(null);
-  const { ref: registerRef, ...rest } = register(field);
+  const options = required
+    ? {
+        required: "This is a required field",
+      }
+    : {};
 
   const handleUploadedFile = async (event: any) => {
     const files: File[] = Array.from(event.target.files);
 
     const successfulFormats: any[] = await formatFiles(files);
-
     setValue(field, successfulFormats);
     clearErrors(field);
     setPreviewImages(successfulFormats);
@@ -50,14 +52,7 @@ const ImageUploader = ({
   };
 
   return (
-    <Grid
-      container
-      direction={"column"}
-      gap={1}
-      // component="form"
-      // action={uploadImage}
-      // onSubmit={handleSubmit(onSubmit)}
-    >
+    <Grid container direction={"column"} gap={1}>
       <InputLabel>{label}</InputLabel>
       <Grid container gap={1}>
         <Button
@@ -69,17 +64,22 @@ const ImageUploader = ({
           disabled={disabled}
         >
           Upload file
-          <input
-            accept={accept}
-            hidden
-            multiple={multiple}
-            type="file"
-            {...rest}
-            onChange={handleUploadedFile}
-            ref={(e) => {
-              registerRef(e);
-              // ref.current = e;
-            }}
+          <Controller
+            name={field}
+            control={control}
+            rules={options}
+            render={({ field }) => (
+              <input
+                accept={accept}
+                hidden
+                multiple={multiple}
+                type="file"
+                onChange={(e) => {
+                  handleUploadedFile(e);
+                  field.onChange(e.target.files);
+                }}
+              />
+            )}
           />
         </Button>
 

@@ -179,7 +179,7 @@ export const AddCard = ({
           </Button>
 
           <ImageUploader
-            {...register("photo", { required: "This is a required field" })}
+            required
             field={"photo"}
             context={methods}
             disabled={disabled}
