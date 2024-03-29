@@ -16,6 +16,8 @@ const ImageUploader = ({
   disabled = false,
   label = "Upload a coverPhoto",
   required = false,
+  showPreview = true,
+  sx = {},
 }: any) => {
   //TODO: Type these props
 
@@ -52,7 +54,7 @@ const ImageUploader = ({
   };
 
   return (
-    <Grid container direction={"column"} gap={1}>
+    <Grid container direction={"column"} gap={1} sx={sx}>
       <InputLabel>{label}</InputLabel>
       <Grid container gap={1}>
         <Button
@@ -83,13 +85,14 @@ const ImageUploader = ({
           />
         </Button>
 
-        {previewImages.map((item, index) => (
-          <Avatar
-            key={"preview-" + index}
-            src={item?.img?.data}
-            sx={{ width: "2.5rem", height: "2.5rem" }}
-          />
-        ))}
+        {showPreview &&
+          previewImages.map((item, index) => (
+            <Avatar
+              key={"preview-" + index}
+              src={item?.img?.data}
+              sx={{ width: "2.5rem", height: "2.5rem" }}
+            />
+          ))}
       </Grid>
       {errors?.[field]?.message && (
         <Typography variant="caption" color="error">

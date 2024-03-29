@@ -10,6 +10,11 @@ export const menuItems = [
     icon: <DashboardIcon />,
   },
   {
+    title: "About Me",
+    path: "/dashboard/about-me",
+    icon: <DashboardIcon />,
+  },
+  {
     title: "Users",
     path: "/dashboard/users",
     icon: <GroupIcon />,

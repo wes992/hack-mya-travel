@@ -39,7 +39,7 @@ const About = ({ content, photo }: AboutProps) => {
           item
           sx={{
             flex: 1,
-            overflow: "hidden",
+            // overflow: "hidden",
           }}
         >
           <Image
@@ -47,6 +47,7 @@ const About = ({ content, photo }: AboutProps) => {
             height={400}
             src={photo?.img?.data}
             alt={photo?.desc || "picture of me"}
+            style={{ objectFit: "contain" }}
           />
         </Grid>
       </Grid>

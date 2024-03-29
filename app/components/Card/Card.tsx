@@ -15,8 +15,6 @@ import {
   ListItemText,
   Divider,
   CardActionArea,
-  FormControlLabel,
-  Checkbox,
 } from "@mui/material";
 import Image from "next/image";
 
@@ -85,12 +83,7 @@ const Card = ({ card }: any) => {
 
             {isAPick && (
               <Grid item key="isAPick" flex={1}>
-                {/* <Typography gutterBottom variant="h5" component="div">
-      {card.name}
-    </Typography>
-    <Typography variant="body2" color="text.secondary">
-      {card.subtitle}
-    </Typography> */}
+                {/*something will go here */}
               </Grid>
             )}
 
@@ -121,10 +114,10 @@ const Card = ({ card }: any) => {
           color="warning"
           variant="outlined"
           onClick={() => console.log("clicked Apply")}
-          sx={(theme) => {
-            console.log({ theme });
-            return { px: 1, fontWeight: theme.typography.fontWeightBold };
-          }}
+          sx={(theme) => ({
+            px: 1,
+            fontWeight: theme.typography.fontWeightBold,
+          })}
         >
           Apply Now
         </Button>

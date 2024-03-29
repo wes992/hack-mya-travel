@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { Post, User, Image, Card } from "./models";
+import { Post, User, Image, Card, AboutMe } from "./models";
 import { connectToDB, getSlug } from "./utils";
 // import bcrypt from "bcrypt";
 
@@ -267,4 +267,27 @@ export const deleteCard = async (formData: any) => {
   revalidatePath("/cards");
   revalidatePath("/");
   redirect("/dashboard/cards");
+};
+
+export const updateAboutMe = async (data: any) => {
+  const { content, image, id } = data;
+
+  try {
+    connectToDB();
+    const doc = await AboutMe.findById(id);
+    if (doc.image !== image) {
+      //delete old image
+      // await Image.findByIdAndDelete(doc.image);
+      // assign new image
+      doc.image = image;
+    }
+    doc.content = content;
+    await doc.save();
+  } catch (e) {
+    console.log(e);
+    throw new Error("Failed to update About Me Details");
+  }
+
+  revalidatePath("/about");
+  redirect("/dashboard");
 };
