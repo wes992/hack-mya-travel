@@ -9,6 +9,11 @@ export const CardSchema = new Schema(
       min: 3,
       max: 20,
     },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     subtitle: {
       type: String,
     },
@@ -21,7 +26,9 @@ export const CardSchema = new Schema(
       default: false,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 // Ensure only one featured item

@@ -10,7 +10,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 const ImageUploader = ({
   context,
   multiple = false,
-  accept = "image/jpg",
+  accept = "image/jpg,image/webp",
   field = "files",
   uploadOnAttach = false,
   disabled = false,

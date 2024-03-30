@@ -29,6 +29,7 @@ export const AddCard = ({
   const defaultValues = {
     name: card?.name || "",
     subtitle: card?.subtitle || "",
+    bank: card?.bank || "",
     highlights: card?.highlights || [{ value: "" }],
     photo: card?.photo || "",
     isFeatured: card?.isFeatured || false,
@@ -114,6 +115,18 @@ export const AddCard = ({
             placeholder="Visa Rewards card"
             error={!!errors.name}
             helperText={String(errors?.name?.message || "")}
+            disabled={disabled}
+          />
+
+          <TextField
+            {...register("bank", {
+              required: "This field is needed for the DB",
+            })}
+            fullWidth
+            label="Issuing Bank"
+            placeholder="Visa Rewards card"
+            error={!!errors.bank}
+            helperText={String(errors?.bank?.message || "")}
             disabled={disabled}
           />
 

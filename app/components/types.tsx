@@ -48,7 +48,7 @@ export type Post = {
 
 export type Params = {
   params: {
-    slug: string;
+    slug?: string;
   };
 };
 
@@ -74,6 +74,7 @@ export type Highlight = {
 export type CreditCard = {
   _id?: string;
   id?: string;
+  bank: string;
   name: string;
   subtitle: string;
   highlights: Highlight[];

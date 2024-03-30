@@ -104,6 +104,18 @@ export const getCards = cache(async (query = {}) => {
     throw new Error("Failed to get Cards");
   }
 });
+
+export const getCard = cache(async (query = {}) => {
+  try {
+    await connectToDB();
+    const card = await Card.findOne(query).populate("photo");
+
+    return JSON.parse(JSON.stringify(card));
+  } catch (e) {
+    console.log(e);
+    throw new Error("Failed to get Card");
+  }
+});
 export const getCardById = cache(async (id: string) => {
   try {
     await connectToDB();
@@ -125,3 +137,17 @@ export const getFeaturedCard = cache(async () => {
     throw new Error("Failed to get Card");
   }
 });
+
+export const getRelatedPosts = async (value: string) => {
+  const allPosts = await Post.find();
+
+  const lowerCased = value.toLowerCase();
+
+  const relatedPosts = allPosts.filter(
+    (post) =>
+      post.content.html.toLowerCase().includes(lowerCased) ||
+      post.title.toLowerCase().includes(lowerCased)
+  );
+
+  return relatedPosts;
+};

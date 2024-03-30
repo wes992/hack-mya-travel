@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Post, User, Image, Card, AboutMe } from "./models";
 import { connectToDB, getSlug } from "./utils";
+import { cache } from "react";
 // import bcrypt from "bcrypt";
 
 // export const addUser = async (formData: any) => {
@@ -203,7 +204,7 @@ export const uploadImages = async (images: (typeof Image)[]) => {
 
 export const upsertCard = async (formData: any) => {
   const { name, subtitle, highlights, photo, isFeatured, id } = formData;
-
+  const slug = getSlug(name);
   try {
     connectToDB();
 
@@ -216,10 +217,12 @@ export const upsertCard = async (formData: any) => {
     }
 
     let currentCard = await Card.findById(id);
+
     // mutation here
     if (currentCard?._id) {
       await Card.findByIdAndUpdate(id, {
         name,
+        slug,
         subtitle,
         highlights,
         photo,
@@ -229,6 +232,7 @@ export const upsertCard = async (formData: any) => {
       //Card data
       const NewCard = new Card({
         name,
+        slug,
         subtitle,
         highlights,
         photo,
