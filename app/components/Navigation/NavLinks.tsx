@@ -14,7 +14,7 @@ const NavLinks = ({ sx }: types.NavLinksProps) => {
       aria-label="main mailbox folders"
       sx={{
         mx: 2,
-        flexGrow: 4,
+        flex: 4,
         ...sx,
       }}
     >
@@ -22,7 +22,10 @@ const NavLinks = ({ sx }: types.NavLinksProps) => {
         <ListItemButton
           LinkComponent={Link}
           key={link.id}
-          selected={selectedPath === link.route}
+          selected={
+            selectedPath === link.route ||
+            selectedPath === `${link.route}/[slug]`
+          }
           href={link.route}
           sx={(theme) => ({
             "&.Mui-selected, &.Mui-selected:hover": {
@@ -32,7 +35,7 @@ const NavLinks = ({ sx }: types.NavLinksProps) => {
             "&:hover": {
               transform: "scale(1.01)",
             },
-            minWidth: "80px",
+            minWidth: "50px",
             borderRadius: 6,
             py: 0,
             textAlign: "center",

@@ -32,8 +32,6 @@ const CreatePost = ({ post = null, editing = true }: CreatePostProps) => {
     formState: { errors },
   } = methods;
 
-  console.log({ errors, methods });
-
   const { user } = useUser();
 
   const onSubmit = async (data: FieldValues) => {

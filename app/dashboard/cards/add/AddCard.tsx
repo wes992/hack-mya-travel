@@ -21,6 +21,7 @@ import { deleteCard, uploadImages, upsertCard } from "@/lib/actions";
 import ImageUploader from "@/app/components/ImageUploader/ImageUploader";
 import { types } from "@/app/components";
 import Link from "next/link";
+import { PostContent } from "../../posts/add";
 
 export const AddCard = ({
   card = null,
@@ -28,6 +29,7 @@ export const AddCard = ({
 }: types.AddCardProps) => {
   const defaultValues = {
     name: card?.name || "",
+    content: card?.content?.html || "",
     subtitle: card?.subtitle || "",
     bank: card?.bank || "",
     highlights: card?.highlights || [{ value: "" }],
@@ -44,22 +46,24 @@ export const AddCard = ({
     setMounted(true);
   }, []);
 
-  const methods = useForm<types.CreditCard>({ defaultValues });
+  const methods = useForm({ defaultValues });
 
   const {
     control,
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = methods;
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "highlights",
-    rules: { maxLength: 5 },
   });
 
   const onSubmit = async (data: FieldValues) => {
+    const parsedContent = JSON.parse(JSON.stringify(data.content));
+
     let photo = undefined;
     if (data.photo) {
       if (data.photo?._id) {
@@ -81,6 +85,7 @@ export const AddCard = ({
       ...data,
       highlights,
       photo,
+      content: parsedContent,
     });
   };
 
@@ -106,29 +111,44 @@ export const AddCard = ({
           onSubmit={handleSubmit(onSubmit)}
           autoComplete="off"
         >
-          <TextField
-            {...register("name", {
-              required: "This field is needed for the DB",
-            })}
-            fullWidth
-            label="Name"
-            placeholder="Visa Rewards card"
-            error={!!errors.name}
-            helperText={String(errors?.name?.message || "")}
-            disabled={disabled}
-          />
+          <Grid container gap={2}>
+            <Grid item flex={1}>
+              <TextField
+                {...register("name", {
+                  required: "This field is needed for the DB",
+                })}
+                label="Name"
+                fullWidth
+                placeholder="Visa Rewards card"
+                error={!!errors.name}
+                helperText={String(errors?.name?.message || "")}
+                disabled={disabled}
+              />
+            </Grid>
 
-          <TextField
-            {...register("bank", {
-              required: "This field is needed for the DB",
-            })}
-            fullWidth
-            label="Issuing Bank"
-            placeholder="Visa Rewards card"
-            error={!!errors.bank}
-            helperText={String(errors?.bank?.message || "")}
-            disabled={disabled}
-          />
+            <Grid item flex={1}>
+              <TextField
+                {...register("bank", {
+                  required: "This field is needed for the DB",
+                })}
+                fullWidth
+                label="Issuing Bank"
+                placeholder="Visa Rewards card"
+                error={!!errors.bank}
+                helperText={String(errors?.bank?.message || "")}
+                disabled={disabled}
+              />
+            </Grid>
+
+            <Grid item flex={1}>
+              <FormControlLabel
+                {...register("isFeatured")}
+                control={<Checkbox defaultChecked={defaultValues.isFeatured} />}
+                label="Mark Card as featured?"
+                disabled={disabled}
+              />
+            </Grid>
+          </Grid>
 
           <TextField
             {...register("subtitle")}
@@ -138,6 +158,13 @@ export const AddCard = ({
             error={!!errors.subtitle}
             helperText={String(errors?.subtitle?.message || "")}
             disabled={disabled}
+          />
+          <ImageUploader
+            required
+            field={"photo"}
+            context={methods}
+            disabled={disabled}
+            label={"Card Photo"}
           />
 
           <TextField
@@ -151,7 +178,7 @@ export const AddCard = ({
           />
 
           <Grid container item gap={2} direction="column">
-            <InputLabel>Add Highlights (maximum of 5)</InputLabel>
+            <InputLabel>Card Highlights</InputLabel>
             {fields.map((field, index) => (
               <Grid
                 container
@@ -186,27 +213,27 @@ export const AddCard = ({
             variant="text"
             onClick={() => append({ value: "" })}
             sx={{ textTransform: "none" }}
-            disabled={disabled || fields.length >= 5}
+            disabled={disabled}
           >
             Add Highlight
           </Button>
 
-          <ImageUploader
-            required
-            field={"photo"}
-            context={methods}
+          <PostContent
+            {...register("content")}
             disabled={disabled}
-            label={"Card Photo"}
+            setDisabled={setDisabled}
+            cancelButton={() => (
+              <Button
+                variant="outlined"
+                component={Link}
+                href="/dashboard/cards"
+              >
+                Cancel
+              </Button>
+            )}
           />
 
-          <FormControlLabel
-            {...register("isFeatured")}
-            control={<Checkbox defaultChecked={defaultValues.isFeatured} />}
-            label="Mark Card as featured?"
-            disabled={disabled}
-          />
-
-          <Grid container item mt={1} gap={2}>
+          {/* <Grid container item mt={1} gap={2}>
             <Button
               variant="contained"
               type="submit"
@@ -217,7 +244,7 @@ export const AddCard = ({
             <Button variant="outlined" component={Link} href="/dashboard/cards">
               Cancel
             </Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       </FormProvider>
     )

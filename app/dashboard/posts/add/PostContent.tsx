@@ -35,12 +35,13 @@ function fileListToImageFiles(fileList: FileList): File[] {
 }
 
 type PostContentProps = {
+  cancelButton?: any;
   disabled: Boolean;
   setDisabled: Dispatch<SetStateAction<boolean>>;
 };
 
 export const PostContent = forwardRef(
-  ({ disabled, setDisabled }: PostContentProps, ref) => {
+  ({ disabled, setDisabled, cancelButton }: PostContentProps, ref) => {
     const {
       formState: { defaultValues },
       setValue,
@@ -232,6 +233,7 @@ export const PostContent = forwardRef(
                 >
                   Save
                 </Button>
+                {cancelButton?.()}
               </Stack>
             ),
           }}

@@ -75,6 +75,7 @@ export type CreditCard = {
   _id?: string;
   id?: string;
   bank: string;
+  content: Content;
   name: string;
   subtitle: string;
   highlights: Highlight[];

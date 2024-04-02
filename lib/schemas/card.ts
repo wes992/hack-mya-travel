@@ -1,5 +1,6 @@
 import { Schema } from "mongoose";
 import { Image } from "../models";
+import { RichTextSchema } from "./";
 
 export const CardSchema = new Schema(
   {
@@ -24,6 +25,13 @@ export const CardSchema = new Schema(
     isFeatured: {
       type: Boolean,
       default: false,
+    },
+    bank: {
+      type: String,
+      required: true,
+    },
+    content: {
+      type: RichTextSchema,
     },
   },
   {

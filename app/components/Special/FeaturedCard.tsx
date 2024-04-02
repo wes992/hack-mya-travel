@@ -22,6 +22,8 @@ export const FeaturedCard = ({ card }: FeaturedCardProps) => {
   if (!card) {
     return null;
   }
+
+  const topHighlights = card.highlights.slice(0, 4);
   return (
     <Section
       header="Featured Card"
@@ -65,12 +67,12 @@ export const FeaturedCard = ({ card }: FeaturedCardProps) => {
               </Grid>
               <Grid item maxWidth={{ xs: "100%", md: "50%" }}>
                 <List>
-                  {card.highlights.map((hl, index) => (
+                  {topHighlights.map((hl, index) => (
                     <Fragment key={index}>
                       <ListItem sx={{ p: 0 }}>
                         <ListItemText primary={hl} />
                       </ListItem>
-                      {index !== card.highlights.length - 1 && (
+                      {index !== topHighlights.length - 1 && (
                         <Divider component="li" />
                       )}
                     </Fragment>

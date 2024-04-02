@@ -16,7 +16,9 @@ const Navbar = () => {
                 display: { xs: "flex", md: "none" },
               }}
             />
-            <NavLinks sx={{ display: { xs: "none", md: "flex" } }} />
+            <NavLinks
+              sx={{ display: { xs: "none", md: "flex" }, maxWidth: 500 }}
+            />
 
             <Login sx={{ ml: "auto" }} />
           </Toolbar>

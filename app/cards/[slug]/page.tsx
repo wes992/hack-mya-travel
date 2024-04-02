@@ -8,7 +8,6 @@ import React from "react";
 const CreditCardDetails = async ({ params }: Params) => {
   const card = await getCard({ slug: params.slug });
   const relatedPosts = await getRelatedPosts(card.name);
-  console.log({ card, relatedPosts });
   return (
     <>
       <CardDetails card={card} />

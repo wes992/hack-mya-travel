@@ -6,8 +6,8 @@ import React from "react";
 const RelatedPosts = ({ posts }: { posts: any[] }) => {
   const router = useRouter();
   return (
-    <Grid container direction="column" alignItems={"center"}>
-      <Typography variant="h6" color="primary.dark" fontWeight="medium">
+    <Grid container direction="column" ml={4}>
+      <Typography variant="body1" color="primary.dark" fontWeight="medium">
         Learn more in these posts
       </Typography>
       <List dense sx={{ listStyle: "inherit" }}>

@@ -203,7 +203,8 @@ export const uploadImages = async (images: (typeof Image)[]) => {
 };
 
 export const upsertCard = async (formData: any) => {
-  const { name, subtitle, highlights, photo, isFeatured, id } = formData;
+  const { name, subtitle, highlights, photo, isFeatured, id, bank, content } =
+    formData;
   const slug = getSlug(name);
   try {
     connectToDB();
@@ -221,6 +222,8 @@ export const upsertCard = async (formData: any) => {
     // mutation here
     if (currentCard?._id) {
       await Card.findByIdAndUpdate(id, {
+        bank,
+        content,
         name,
         slug,
         subtitle,
@@ -231,6 +234,8 @@ export const upsertCard = async (formData: any) => {
     } else {
       //Card data
       const NewCard = new Card({
+        bank,
+        content,
         name,
         slug,
         subtitle,
