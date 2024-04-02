@@ -5,6 +5,9 @@ import React from "react";
 
 const RelatedPosts = ({ posts }: { posts: any[] }) => {
   const router = useRouter();
+  if (posts.length < 1) {
+    return null;
+  }
   return (
     <Grid container direction="column" ml={4}>
       <Typography variant="body1" color="primary.dark" fontWeight="medium">
