@@ -9,7 +9,6 @@ import { FeaturedCard } from "./components/Special/FeaturedCard";
 export default async function Home() {
   const hero = await getHero();
   const recentPosts = await getRecentPosts();
-  // const featuredCard = await getFeaturedCard();
   const featuredCard = await getCard({ isFeatured: true });
   return (
     <main>

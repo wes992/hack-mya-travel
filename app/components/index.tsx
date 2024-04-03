@@ -11,5 +11,6 @@ export { Login } from "./Login";
 export { ShareOnSocials } from "./Socials";
 export { LoadingScreen } from "./LoadingScreen";
 export { Card } from "./Card";
+export { NoContent } from "./NoContent";
 
 export * as types from "./types";

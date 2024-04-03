@@ -51,9 +51,12 @@ const CardBanner = ({ card }: any) => {
         </Grid>
       </Grid>
       <Grid item flex={1}>
-        <Typography variant={"body1"} sx={{ color: "warning" }}>
-          Some Content here (Ratings?)
-        </Typography>
+        {/* card.details is just a placaholder */}
+        {card.details && (
+          <Typography variant={"body1"} sx={{ color: "warning" }}>
+            Some Content here (Ratings?)
+          </Typography>
+        )}
       </Grid>
     </Grid>
   );

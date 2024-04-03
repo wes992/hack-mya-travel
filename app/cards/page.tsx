@@ -1,11 +1,19 @@
 import React from "react";
 import { getCards } from "@/lib/data";
 import { Grid } from "@mui/material";
-import { Card } from "../components";
+import { Card, NoContent } from "../components";
 
 const CreditCards = async () => {
   const cards = await getCards();
 
+  if (cards.length < 1) {
+    return (
+      <NoContent
+        title="There are no cards here."
+        path={"/dashboard/cards/add"}
+      />
+    );
+  }
   return (
     <Grid container gap={2} mx={2} justifyContent={"center"}>
       {cards.map((card: any) => {

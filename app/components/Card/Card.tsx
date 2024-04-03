@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Card = ({ card }: any) => {
   const router = useRouter();
@@ -113,19 +114,25 @@ const Card = ({ card }: any) => {
       </CardActionArea>
       {card.referralLink && (
         <CardActions sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
-          <Button
-            color="warning"
-            variant="outlined"
-            onClick={() => console.log("clicked Apply")}
-            sx={(theme) => ({
-              px: 1,
-              fontWeight: theme.typography.fontWeightBold,
-            })}
+          <Link
+            href={card.referralLink}
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            Apply Now
-          </Button>
+            <Button
+              color="warning"
+              variant="outlined"
+              sx={(theme) => ({
+                px: 1,
+                fontWeight: theme.typography.fontWeightBold,
+                mb: 1,
+              })}
+            >
+              Apply Now
+            </Button>
+          </Link>
           <Typography variant="caption" sx={{ fontSize: ".6rem" }}>
-            {'Securely with "Bank X"'}
+            {`Securely with ${card.bank}`}
           </Typography>
         </CardActions>
       )}

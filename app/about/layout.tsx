@@ -6,7 +6,8 @@ const layout = ({ children }: { children: ReactNode | ReactNode[] }) => {
   return (
     <Grid container>
       {children}
-      <Footer />
+      {/* temorarily commented out until I get links to socials */}
+      {/* <Footer /> */}
     </Grid>
   );
 };

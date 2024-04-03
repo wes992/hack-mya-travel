@@ -203,8 +203,17 @@ export const uploadImages = async (images: (typeof Image)[]) => {
 };
 
 export const upsertCard = async (formData: any) => {
-  const { name, subtitle, highlights, photo, isFeatured, id, bank, content } =
-    formData;
+  const {
+    name,
+    subtitle,
+    highlights,
+    photo,
+    isFeatured,
+    id,
+    bank,
+    content,
+    referralLink,
+  } = formData;
   const slug = getSlug(name);
   try {
     connectToDB();
@@ -230,6 +239,7 @@ export const upsertCard = async (formData: any) => {
         highlights,
         photo,
         isFeatured,
+        referralLink,
       });
     } else {
       //Card data
@@ -242,6 +252,7 @@ export const upsertCard = async (formData: any) => {
         highlights,
         photo,
         isFeatured,
+        referralLink,
       });
 
       await NewCard.save();

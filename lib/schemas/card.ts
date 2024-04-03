@@ -33,6 +33,9 @@ export const CardSchema = new Schema(
     content: {
       type: RichTextSchema,
     },
+    referralLink: {
+      type: String,
+    },
   },
   {
     timestamps: true,
