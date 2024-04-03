@@ -1,16 +1,21 @@
+"use client";
+
 import {
+  Button,
   Card,
   CardContent,
-  CardHeader,
   CardMedia,
   Divider,
   Grid,
   List,
   ListItem,
   ListItemText,
+  Stack,
+  Typography,
 } from "@mui/material";
 import { Section, types } from "..";
 import { Fragment } from "react";
+import { redirect, useRouter } from "next/navigation";
 
 type FeaturedCardProps = {
   card: Omit<types.CreditCard, "highlights"> & {
@@ -19,11 +24,17 @@ type FeaturedCardProps = {
 };
 
 export const FeaturedCard = ({ card }: FeaturedCardProps) => {
+  const router = useRouter();
   if (!card) {
     return null;
   }
 
   const topHighlights = card.highlights.slice(0, 4);
+
+  const handleRedirect = () => {
+    router.push(`/cards/${card.slug}`);
+  };
+
   return (
     <Section
       header="Featured Card"
@@ -36,13 +47,16 @@ export const FeaturedCard = ({ card }: FeaturedCardProps) => {
             m: 2,
           }}
         >
-          <CardHeader
-            title={card.name}
-            subheader={card.subtitle}
-            sx={{ pb: 0 }}
-          />
+          <Stack p={2}>
+            <Typography variant="h5" color="primary.dark" fontWeight={"medium"}>
+              {card.name}
+            </Typography>
+            <Typography variant="body1" color="warning.main">
+              {card.subtitle}
+            </Typography>
+          </Stack>
 
-          <CardContent sx={{ p: 0 }}>
+          <CardContent sx={{ p: 0, position: "relative" }}>
             <Grid
               container
               gap={2}
@@ -79,6 +93,20 @@ export const FeaturedCard = ({ card }: FeaturedCardProps) => {
                   ))}
                 </List>
               </Grid>
+            </Grid>
+            <Grid
+              container
+              sx={{
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                variant="contained"
+                color="warning"
+                onClick={handleRedirect}
+              >
+                Learn More
+              </Button>
             </Grid>
           </CardContent>
         </Card>

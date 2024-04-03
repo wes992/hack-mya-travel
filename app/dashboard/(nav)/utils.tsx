@@ -2,6 +2,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupIcon from "@mui/icons-material/Group";
 import ArticleIcon from "@mui/icons-material/Article";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
+import InfoIcon from "@mui/icons-material/Info";
 
 export const menuItems = [
   {
@@ -12,7 +13,7 @@ export const menuItems = [
   {
     title: "About Me",
     path: "/dashboard/about-me",
-    icon: <DashboardIcon />,
+    icon: <InfoIcon />,
   },
   {
     title: "Users",

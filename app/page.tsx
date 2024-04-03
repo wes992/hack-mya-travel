@@ -1,8 +1,7 @@
 import React from "react";
 import { Grid } from "@mui/material";
 import { Hero, SpecialPosts } from "./components";
-import { Cards } from "./components/Special";
-import { getFeaturedCard, getHero, getRecentPosts } from "@/lib/data";
+import { getCard, getHero, getRecentPosts } from "@/lib/data";
 import { FeaturedCard } from "./components/Special/FeaturedCard";
 
 //TODO: Remove static text
@@ -10,7 +9,8 @@ import { FeaturedCard } from "./components/Special/FeaturedCard";
 export default async function Home() {
   const hero = await getHero();
   const recentPosts = await getRecentPosts();
-  const featuredCard = await getFeaturedCard();
+  // const featuredCard = await getFeaturedCard();
+  const featuredCard = await getCard({ isFeatured: true });
   return (
     <main>
       <Grid container>

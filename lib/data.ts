@@ -116,6 +116,8 @@ export const getCard = cache(async (query = {}) => {
     throw new Error("Failed to get Card");
   }
 });
+
+//TODO: deprecate - no longer used
 export const getCardById = cache(async (id: string) => {
   try {
     await connectToDB();
@@ -127,6 +129,7 @@ export const getCardById = cache(async (id: string) => {
   }
 });
 
+//TODO: deprecate - no longer used
 export const getFeaturedCard = cache(async () => {
   try {
     await connectToDB();

@@ -27,7 +27,7 @@ const RenderTableRow = ({ row, action }: { row: any; action: any }) => {
       key={row.name}
       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
       onClick={() => {
-        isMediumScreen ? {} : router.push(`/dashboard/cards/${row._id}`);
+        isMediumScreen ? {} : router.push(`/dashboard/cards/${row.slug}`);
       }}
     >
       <TableCell>{row.name}</TableCell>
@@ -36,7 +36,7 @@ const RenderTableRow = ({ row, action }: { row: any; action: any }) => {
       </TableCell>
       <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
         <Grid container gap={1}>
-          <Link href={`/dashboard/cards/${row._id}`}>
+          <Link href={`/dashboard/cards/${row.slug}`}>
             <Button
               size="small"
               startIcon={<VisibilityIcon />}
