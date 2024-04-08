@@ -2,7 +2,7 @@ import { Divider, Grid, Typography } from "@mui/material";
 import React from "react";
 import { ShareOnSocials } from "../Socials/ShareOnSocials";
 
-const Footer = ({ post }) => {
+const Footer = ({ post, url }) => {
   const { category = "Travel", title = "A great title" } = post;
   return (
     <Grid container>
@@ -18,7 +18,7 @@ const Footer = ({ post }) => {
         alignItems={"center"}
       >
         <Grid item>
-          <ShareOnSocials title={title} url={post.route} />
+          <ShareOnSocials title={title} url={url} />
         </Grid>
         <Typography variant="body1">{category}</Typography>
       </Grid>

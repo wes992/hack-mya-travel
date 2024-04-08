@@ -22,6 +22,9 @@ import { formatDate } from "../utils";
 import { ShareOnSocials } from "../Socials/ShareOnSocials";
 import { getReadingTime } from "./utils";
 
+const url = window?.location?.href || "";
+console.log({ url });
+
 const Post = ({ post }: any) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -52,6 +55,7 @@ const Post = ({ post }: any) => {
 
   const { date } = formatDate(createdAt);
   const estimatedReadTime = getReadingTime(content.html);
+
   return (
     <Grid container sx={{ justifyContent: "center" }}>
       <Container sx={{ p: 0, width: { xs: "100%", md: "80%" } }}>
@@ -96,17 +100,17 @@ const Post = ({ post }: any) => {
             ></div>
           </Grid>
         </CardContent>
-        <Footer post={post} />
+        <Footer post={post} url={url} />
       </Container>
       <Popup anchorEl={anchorEl} open={open} handleClose={handleClose}>
-        <MenuItem onClick={() => onClickMenuItem(post.route)}>
+        <MenuItem onClick={() => onClickMenuItem(url)}>
           Share Post <Reply sx={{ ml: 1, transform: "scaleX(-1)" }} />
         </MenuItem>
       </Popup>
       <Dialog open={sharePostModal} onClose={() => setSharePostModal(false)}>
         <DialogTitle>How would you would like to share this?</DialogTitle>
         <DialogContent>
-          <ShareOnSocials title={post.title} url={post.route} />
+          <ShareOnSocials title={post.title} url={url} />
         </DialogContent>
       </Dialog>
     </Grid>
