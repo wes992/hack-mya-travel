@@ -22,7 +22,12 @@ import { formatDate } from "../utils";
 import { ShareOnSocials } from "../Socials/ShareOnSocials";
 import { getReadingTime } from "./utils";
 
-const url = window?.location?.href || "";
+let url = "";
+
+if (typeof window !== "undefined") {
+  url = window.location.href;
+}
+
 console.log({ url });
 
 const Post = ({ post }: any) => {
