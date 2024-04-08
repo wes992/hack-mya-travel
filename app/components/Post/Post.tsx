@@ -28,8 +28,6 @@ if (typeof window !== "undefined") {
   url = window.location.href;
 }
 
-console.log({ url });
-
 const Post = ({ post }: any) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 

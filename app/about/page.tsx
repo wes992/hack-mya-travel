@@ -5,7 +5,6 @@ import { About, NoContent } from "@/app/components";
 
 export default async function about() {
   const result = await getAboutData();
-  console.log(result);
 
   if (!result._id) {
     return (
