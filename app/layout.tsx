@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { ThemeProvider } from "@mui/material/styles";
@@ -7,6 +7,7 @@ import { CssBaseline, Grid } from "@mui/material";
 import { Navbar } from "./components";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import theme from "./theme";
+import Loading from "@/Loading";
 
 export const metadata: Metadata = {
   title: "Hack Mya Travel",
@@ -30,7 +31,7 @@ export default function RootLayout({
               <CssBaseline />
               <Navbar />
               <Grid container justifyContent={"center"} mt={10}>
-                {children}
+                <Suspense fallback={<Loading />}>{children}</Suspense>
               </Grid>
             </ThemeProvider>
           </UserProvider>
