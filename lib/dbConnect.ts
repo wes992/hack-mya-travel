@@ -21,7 +21,7 @@ export const dbConnect = (url: string): typeof mongoose => {
   }
   if (!cached.promise) {
     const opts = {
-      bufferCommands: false,
+      bufferCommands: true,
     };
     cached.promise = mongoose.createConnection(url, opts);
   }
