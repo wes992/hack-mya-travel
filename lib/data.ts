@@ -1,10 +1,8 @@
 import { cache } from "react";
 import { AboutMe, Card, Hero, Post, User } from "./models";
-import { connectToDB } from "./utils";
 
 export const getPosts = cache(async (query = "") => {
   try {
-    await connectToDB();
     const posts = await Post.find().populate("author").populate("coverPhoto");
 
     return JSON.parse(JSON.stringify(posts));
@@ -16,7 +14,6 @@ export const getPosts = cache(async (query = "") => {
 
 export const getRecentPosts = cache(async (limit = 3) => {
   try {
-    await connectToDB();
     const recentPosts = await Post.find({})
       .populate("author")
       .populate("coverPhoto")
@@ -32,7 +29,6 @@ export const getRecentPosts = cache(async (limit = 3) => {
 
 export const getHero = cache(async () => {
   try {
-    await connectToDB();
     const hero = await Hero.findOne().populate("image");
 
     return JSON.parse(JSON.stringify(hero));
@@ -44,8 +40,6 @@ export const getHero = cache(async () => {
 
 export const getAboutData = cache(async () => {
   try {
-    await connectToDB();
-
     const result = await AboutMe.findOne().populate("image");
 
     const parsed = JSON.parse(JSON.stringify(result));
@@ -59,7 +53,6 @@ export const getAboutData = cache(async () => {
 
 export const getUsers = cache(async () => {
   try {
-    await connectToDB();
     const result = await User.find();
     return JSON.parse(JSON.stringify(result));
   } catch (e) {
@@ -70,7 +63,6 @@ export const getUsers = cache(async () => {
 
 export const getUser = cache(async (id: string) => {
   try {
-    await connectToDB();
     const result = await User.findById(id);
     return result;
   } catch (e) {
@@ -81,7 +73,6 @@ export const getUser = cache(async (id: string) => {
 
 export const getPostBySlug = cache(async (slug: string) => {
   try {
-    await connectToDB();
     const result = await Post.findOne({ slug })
       .populate("author")
       .populate("coverPhoto");
@@ -95,7 +86,6 @@ export const getPostBySlug = cache(async (slug: string) => {
 
 export const getCards = cache(async (query = {}) => {
   try {
-    await connectToDB();
     const cards = await Card.find(query).populate("photo");
 
     return JSON.parse(JSON.stringify(cards));
@@ -107,7 +97,6 @@ export const getCards = cache(async (query = {}) => {
 
 export const getCard = cache(async (query = {}) => {
   try {
-    await connectToDB();
     const card = await Card.findOne(query).populate("photo");
 
     return JSON.parse(JSON.stringify(card));
@@ -120,7 +109,6 @@ export const getCard = cache(async (query = {}) => {
 //TODO: deprecate - no longer used
 export const getCardById = cache(async (id: string) => {
   try {
-    await connectToDB();
     const result = await Card.findById(id).populate("photo");
     return JSON.parse(JSON.stringify(result));
   } catch (e) {
@@ -132,7 +120,6 @@ export const getCardById = cache(async (id: string) => {
 //TODO: deprecate - no longer used
 export const getFeaturedCard = cache(async () => {
   try {
-    await connectToDB();
     const result = await Card.findOne({ isFeatured: true }).populate("photo");
     return JSON.parse(JSON.stringify(result));
   } catch (e) {

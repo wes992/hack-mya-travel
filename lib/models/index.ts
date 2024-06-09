@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { IUser, IPost } from "../interfaces";
 import {
   UserSchema,
@@ -8,19 +7,20 @@ import {
   ImageSchema,
 } from "../schemas";
 import { CardSchema } from "../schemas/card";
+import env from "../environment";
+import { dbConnect } from "../dbConnect";
 
-export const User =
-  mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
+const conn = dbConnect(env.DB_URL);
 
-export const Post =
-  mongoose.models.Post || mongoose.model<IPost>("Post", PostSchema);
+export const User = conn.models.User || conn.model<IUser>("User", UserSchema);
 
-export const Hero = mongoose.models.Hero || mongoose.model("Hero", HeroSchema);
+export const Post = conn.models.Post || conn.model<IPost>("Post", PostSchema);
+
+export const Hero = conn.models.Hero || conn.model("Hero", HeroSchema);
 
 export const AboutMe =
-  mongoose.models.AboutMe || mongoose.model("AboutMe", AboutMeSchema);
+  conn.models.AboutMe || conn.model("AboutMe", AboutMeSchema);
 
-export const Image =
-  mongoose.models.Image || mongoose.model("Image", ImageSchema);
+export const Image = conn.models.Image || conn.model("Image", ImageSchema);
 
-export const Card = mongoose.models.Card || mongoose.model("Card", CardSchema);
+export const Card = conn.models.Card || conn.model("Card", CardSchema);

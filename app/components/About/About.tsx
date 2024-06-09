@@ -1,6 +1,7 @@
-import { Grid, Typography, Container } from "@mui/material";
+import { Grid, Typography, Box } from "@mui/material";
 import Image from "next/image";
 import React from "react";
+import { SubscribeNewsletter } from "../Newsletter";
 
 type AboutProps = {
   content: string;
@@ -9,37 +10,38 @@ type AboutProps = {
 
 const About = ({ content, photo }: AboutProps) => {
   return (
-    <Container
+    <Grid
+      container
       sx={{
-        display: { xs: "flex", md: "block" },
-        flexDirection: "column",
+        flexDirection: { xs: "column", md: "row" },
         textAlign: { xs: "center", md: "left" },
-        mb: 4,
+        width: "fit-content",
+        mx: "auto",
       }}
     >
-      <Container disableGutters>
-        <Typography variant="h3" py={4}>
+      <Box my={2}>
+        <Typography variant="h3" px={2}>
           About
         </Typography>
-      </Container>
+      </Box>
+
       <Grid
         container
-        item
+        gap={4}
         sx={{
-          alignItems: "center",
           flexDirection: { xs: "column-reverse", md: "row" },
-          overflow: "hidden",
         }}
-        gap={8}
       >
-        <Grid item sx={{ flex: 1 }}>
+        <Grid item sx={{ flex: 1, px: 2 }}>
           <Typography variant="body1">{content}</Typography>
         </Grid>
         <Grid
           item
           sx={{
-            flex: 1,
-            // overflow: "hidden",
+            display: "flex",
+            justifyContent: "center",
+            maxWidth: "100%",
+            overflow: "hidden",
           }}
         >
           <Image
@@ -51,7 +53,8 @@ const About = ({ content, photo }: AboutProps) => {
           />
         </Grid>
       </Grid>
-    </Container>
+      {/* <SubscribeNewsletter /> */}
+    </Grid>
   );
 };
 

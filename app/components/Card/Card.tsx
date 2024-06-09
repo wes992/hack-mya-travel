@@ -15,6 +15,8 @@ import {
   ListItemText,
   Divider,
   CardActionArea,
+  useMediaQuery,
+  Theme,
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -26,12 +28,14 @@ const Card = ({ card }: any) => {
   const labels = useResources("labels");
   const filteredHighlights = card.highlights.slice(0, 3);
   const isAPick = false;
+  const isMobile = !useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
   return (
     <MUICard
       key={card._id}
       sx={(theme) => ({
         display: "flex",
+        flexDirection: isMobile ? "column" : "row",
         p: 2,
         width: "80%",
         alignItems: "center",
@@ -39,7 +43,11 @@ const Card = ({ card }: any) => {
       })}
     >
       <CardActionArea
-        sx={{ display: "flex", flex: 6 }}
+        sx={{
+          display: "flex",
+          flex: 6,
+          flexDirection: isMobile ? "column" : "row",
+        }}
         onClick={() => router.push(`/cards/${card.slug}`)}
       >
         <Grid item flex={1}>
@@ -62,6 +70,7 @@ const Card = ({ card }: any) => {
             gap={2}
             justifyContent={"space-between"}
             alignItems={"center"}
+            direction={isMobile ? "column" : "row"}
           >
             <Grid item key="nameSubtitle" flex={6}>
               <Typography

@@ -15,12 +15,8 @@ const Footer = () => {
   return (
     <Paper
       sx={(theme) => ({
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
+        mt: 2,
         bgcolor: theme.palette.primary.main,
-        zIndex: 4,
       })}
       elevation={3}
     >

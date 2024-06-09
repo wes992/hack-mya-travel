@@ -3,8 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { Post, User, Image, Card, AboutMe } from "./models";
-import { connectToDB, getSlug } from "./utils";
-import { cache } from "react";
+import { getSlug } from "./utils";
+// import { cache } from "react";
 // import bcrypt from "bcrypt";
 
 // export const addUser = async (formData: any) => {
@@ -12,26 +12,25 @@ import { cache } from "react";
 //     Object.fromEntries(formData);
 
 //   try {
-//     connectToDB();
 
 //     const salt = await bcrypt.genSalt(10);
 //     const hashedPassword = await bcrypt.hash(password, salt);
 
-//     //TODO: Add users in Auth0. If sucessful, add to DB
+//TODO: Add users in Auth0. If sucessful, add to DB
 
-//     //user data
-//     // const newUser = new User({
-//     //   username,
-//     //   email,
-//     //   password: hashedPassword,
-//     //   phone,
-//     //   address,
-//     //   isAdmin,
-//     //   isActive,
-//     // });
+//user data
+// const newUser = new User({
+//   username,
+//   email,
+//   password: hashedPassword,
+//   phone,
+//   address,
+//   isAdmin,
+//   isActive,
+// });
 
-//     // mutation here
-//     // await newUser.save();
+// mutation here
+// await newUser.save();
 //   } catch (e) {
 //     console.log(e);
 //     throw new Error("Failed to create User");
@@ -43,7 +42,6 @@ import { cache } from "react";
 
 export const getUserByEmail = async (email: string) => {
   try {
-    await connectToDB();
     const result = await User.findOne({ email });
 
     return JSON.parse(JSON.stringify(result));
@@ -66,8 +64,6 @@ export const upsertPost = async (formData: any) => {
   //TODO: util to get current signed in Author
 
   try {
-    connectToDB();
-
     const authorDetails = await getUserByEmail(authorEmail);
     const { _id } = authorDetails;
     //Post data
@@ -110,8 +106,6 @@ export const deletePost = async (formData: any) => {
   console.log("formData", formData);
   const { id } = Object.fromEntries(formData);
   try {
-    connectToDB();
-
     console.log("requesting delete for", id);
 
     // mutation here
@@ -131,8 +125,6 @@ export const upsertUser = async (user: any) => {
   //TODO: type this
   const { given_name, family_name, nickname, name, picture, email } = user;
   try {
-    connectToDB();
-
     const result = await User.findOne({ email });
     if (result) {
       const { _id } = result;
@@ -166,7 +158,6 @@ export const deleteUser = async (formData: any) => {
   const { id } = Object.fromEntries(formData);
 
   try {
-    connectToDB();
     //TODO: delete user from Auth0, if successful, delete from DB
 
     // mutation here
@@ -182,7 +173,6 @@ export const deleteUser = async (formData: any) => {
 export const uploadImages = async (images: (typeof Image)[]) => {
   let imageResults = [];
   try {
-    connectToDB();
     for (const i of Array.from(images ?? [])) {
       let result = await Image.findOne({ name: i.name });
 
@@ -216,8 +206,6 @@ export const upsertCard = async (formData: any) => {
   } = formData;
   const slug = getSlug(name);
   try {
-    connectToDB();
-
     if (isFeatured) {
       //ensure all others are marked as isFeatured: false
       await Card.updateMany(
@@ -272,8 +260,6 @@ export const deleteCard = async (formData: any) => {
   console.log("formData", formData);
   const { id } = Object.fromEntries(formData);
   try {
-    connectToDB();
-
     console.log("requesting delete for", id);
 
     // mutation here
@@ -293,7 +279,6 @@ export const updateAboutMe = async (data: any) => {
   const { content, image, id } = data;
 
   try {
-    connectToDB();
     const doc = await AboutMe.findById(id);
     if (doc.image !== image) {
       //delete old image
