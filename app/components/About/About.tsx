@@ -1,7 +1,6 @@
 import { Grid, Typography, Box } from "@mui/material";
 import Image from "next/image";
 import React from "react";
-import { SubscribeNewsletter } from "../Newsletter";
 
 type AboutProps = {
   content: string;

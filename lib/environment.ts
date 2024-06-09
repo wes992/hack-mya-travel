@@ -31,4 +31,6 @@ const config = {
 
 const DB_URL = `mongodb+srv://${config.DB_USERNAME}:${config.DB_PASSWORD}@${config.DB_HOST_URL}/${config.DB_COLLECTION}?retryWrites=${config.DB_RETRY_WRITES}&w=majority&appName=${config.APP_NAME}`;
 
-export default { ...config, DB_URL };
+const configWithUrl = { ...config, DB_URL };
+
+export default configWithUrl;

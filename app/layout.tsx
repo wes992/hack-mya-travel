@@ -8,6 +8,7 @@ import { Footer, Navbar } from "./components";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import theme from "./theme";
 import Loading from "@/Loading";
+import { BuyMeACoffee } from "./components/BuyMeACoffee/BuyMeACoffee";
 
 export const metadata: Metadata = {
   title: "Hack Mya Travel",
@@ -35,20 +36,7 @@ export default function RootLayout({
                 <Suspense fallback={<Loading />}>{children}</Suspense>
               </Grid>
               {/* <Footer /> */}
-              {SHOW_COFFEE && (
-                <script
-                  data-name="BMC-Widget"
-                  data-cfasync="false"
-                  src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
-                  data-id="HackMyaTravel"
-                  data-description="Support me on Buy me a coffee!"
-                  data-message="If you find my content helpful, please consider buying me a coffee."
-                  data-color="#FF813F"
-                  data-position="Right"
-                  data-x_margin="18"
-                  data-y_margin="18"
-                ></script>
-              )}
+              {SHOW_COFFEE && <BuyMeACoffee />}
             </ThemeProvider>
           </UserProvider>
         </AppRouterCacheProvider>
